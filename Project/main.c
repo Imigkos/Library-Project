@@ -1,5 +1,5 @@
 #include "init.h"
-
+#include "main_functions.c"
 void main()
 {
     int exit = 0;

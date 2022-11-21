@@ -22,3 +22,5 @@ typedef struct writes
    char *title;
    int writer_id;
 } writes;
+
+author * get_authors();
