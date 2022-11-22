@@ -2,15 +2,22 @@
 #include "main_functions.c"
 void main()
 {
-    int author_arr_size = get_lines();
+
+    int author_arr_size = get_lines("authors.txt");
     author * author_arr = malloc(sizeof(author) * ((author_arr_size-1)/4)); 
     author_arr = get_authors();
     printf("%s",author_arr[1].name);
 
-    int book_arr_size = get_lines();
-    book * book_arr = malloc(sizeof(book)*((book_arr_size-1)/4));
+    int book_arr_size = get_lines("book.txt");
+    book * book_arr = malloc(sizeof(book)*((book_arr_size-1)/3));
     book_arr = get_books();
     printf("%s",book_arr[1].title);
+
+    int writes_arr_size = get_lines("writes.txt");
+    writes * writes_arr = malloc(sizeof(writes)*((book_arr_size-1)/2));
+    writes_arr = get_writes();
+    printf("%s",writes_arr[1].title);
+
 
     int exit = 0;
     while (exit == 0)
