@@ -7,6 +7,11 @@ void main()
     author_arr = get_authors();
     printf("%s",author_arr[1].name);
 
+    int book_arr_size = get_lines();
+    book * book_arr = malloc(sizeof(book)*((book_arr_size-1)/4));
+    book_arr = get_books();
+    printf("%s",book_arr[1].title);
+
     int exit = 0;
     while (exit == 0)
     {

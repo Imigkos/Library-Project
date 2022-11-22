@@ -56,23 +56,21 @@ book * get_books(){
     book * book_arr = malloc(sizeof(book) * entries); 
     while (fgets(buffer,MAX,book_file)){
         book book;
-        book.book = atoi(buffer);
+        book.release_date = atoi(buffer);
         //char* buffer = malloc(100*sizeof(char));
 
-        writer.surname = malloc(sizeof(char)*MAX);
-        fgets(writer.surname,MAX,author_file);
+        book.title= malloc(sizeof(char)*MAX);
+        fgets(book.title,MAX,book_file);
         
-        writer.name = malloc (sizeof(char)*MAX);
-        fgets(writer.name,MAX,author_file);
 
-        fgets(buffer,MAX,author_file);
-        writer.num_of_books = atoi(buffer);
+        fgets(buffer,MAX,book_file);
+        book.price = atof(buffer);
 
-        author_arr[i] = writer;
+        book_arr[i] = book;
         i++;
 
     }
-    return author_arr;
+    return book_arr;
 }
 
 
