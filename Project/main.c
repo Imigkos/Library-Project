@@ -1,7 +1,12 @@
-#include "init.h"
+
 #include "main_functions.c"
 void main()
 {
+    int author_arr_size = get_lines();
+    author * author_arr = malloc(sizeof(author) * ((author_arr_size-1)/4)); 
+    author_arr = get_authors();
+    printf("%s",author_arr[1].name);
+
     int exit = 0;
     while (exit == 0)
     {
