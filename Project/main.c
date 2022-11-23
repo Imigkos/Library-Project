@@ -74,6 +74,7 @@ void main()
             break;
         case 7:
             exit = 1;
+            exit_library(author_arr,book_arr,writes_arr,author_arr_size,book_arr_size,writes_arr_size);
             break;
         default:
             printf("bale 1-7 paliomalaka");

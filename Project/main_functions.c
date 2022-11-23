@@ -128,7 +128,7 @@ author * insert_author(author writer,int arr_size)
     return(author_arr);
 }
 
-void exit_library(author *author_arr,book *book_array,writes *writes_arr,int author_arr_size,int book_arr_size,int writes_arr_size){
+void exit_library(author *author_arr,book *book_arr,writes *writes_arr,int author_arr_size,int book_arr_size,int writes_arr_size){
 
     FILE *author_file,*writes_file,*book_file;
     int i;
@@ -139,6 +139,63 @@ void exit_library(author *author_arr,book *book_array,writes *writes_arr,int aut
         exit(1);
     }
 
+for (i = 0; i < author_arr_size; i++)
+    {
+        if (i==0)
+        {
+           fprintf(author_file,"%d",author_arr_size);
+        }
+        
+        fprintf(author_file, "%d", author_arr[i].writer_id);
+        fprintf(author_file, "%s", author_arr[i].surname);
+        fprintf(author_file, "%s", author_arr[i].name);
+        fprintf(author_file, "%d", author_arr[i].num_of_books);
+    }
 
+if ((book_file= fopen("book.txt", "w")) == NULL)
+    {
+        fprintf(stderr, "Error in book.txt");
+        exit(1);
+    }
+
+for (i = 0; i < book_arr_size; i++)
+    {
+        if (i==0)
+        {
+           fprintf(book_file,"%d",book_arr_size);
+        }
+        
+        fprintf(book_file, "%d", book_arr[i].release_date);
+        fprintf(book_file, "%s", book_arr[i].title);
+        fprintf(book_file, "%f", book_arr[i].price);
+        
+    }
+
+if ((writes_file= fopen("writes.txt", "w")) == NULL)
+    {
+        fprintf(stderr, "Error in writes.txt");
+        exit(1);
+    }
+
+for (i = 0; i < writes_arr_size; i++)
+    {
+        if (i==0)
+        {
+           fprintf(writes_file,"%d",writes_arr_size);
+        }
+        
+        fprintf(writes_file, "%d", writes_arr[i].writer_id);
+        fprintf(writes_file, "%s", writes_arr[i].title);
+           
+    }
+
+    fflush(author_file);
+    fclose(author_file);
+
+    fflush(book_file);
+    fclose(book_file);
+
+    fflush(writes_file);
+    fclose(writes_file);
 
 }
