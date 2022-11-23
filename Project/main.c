@@ -48,14 +48,11 @@ void main()
             free(buffer);
             buffer = NULL;
 
-            printf("\n%s\n%s",new_writer.name,new_writer.surname);
-
             new_writer.writer_id = (author_arr_size+1);
             new_writer.num_of_books = 0;
-            author_arr = insert_author(new_writer);
+            author_arr = insert_author(new_writer,author_arr_size);
             printf("\n%s\n%s\n%d\n%d",author_arr[author_arr_size].name,author_arr[author_arr_size].surname,author_arr[author_arr_size].writer_id,author_arr[author_arr_size].num_of_books);
             author_arr_size++;
-
             free(new_writer.name);
             free(new_writer.surname);
         

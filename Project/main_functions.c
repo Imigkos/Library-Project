@@ -120,12 +120,25 @@ int get_arr_size(char *filename){
     return(array_size);
 }
 
-author * insert_author(author writer)
+author * insert_author(author writer,int arr_size)
 {
-    int arr_size = get_arr_size("authors.txt");
-    author *author_arr = malloc(arr_size*sizeof(author)+sizeof(author)*1);
+    author *author_arr = malloc(arr_size*sizeof(author)+sizeof(author));
     author_arr = get_authors();
-
     author_arr[arr_size] = writer;
     return(author_arr);
+}
+
+void exit_library(author *author_arr,book *book_array,writes *writes_arr,int author_arr_size,int book_arr_size,int writes_arr_size){
+
+    FILE *author_file,*writes_file,*book_file;
+    int i;
+
+    if ((author_file= fopen("authors.txt", "w")) == NULL)
+    {
+        fprintf(stderr, "Error in authors.txt");
+        exit(1);
+    }
+
+
+
 }
