@@ -105,33 +105,28 @@ writes * get_writes(){
 }
 
 
-int get_lines(char *filename)
-{
-    char *line_buffer = NULL;
-    size_t line_buffer_length = 0;
-    int line_count = 0;
-    ssize_t line_len;
-
+int get_arr_size(char *filename){
     FILE *file;
-
     if ((file = fopen(filename, "r")) == NULL)
     {
         /* If the file does not exist throw error and exit */
         fprintf(stderr, "file does not exist\n");
         exit(1);
     }
-    /* Get the line count of the file */
-    line_len = getline(&line_buffer, &line_buffer_length, file);
-    while (line_len >= 0)
-    {
-        line_count++;
-        line_len = getline(&line_buffer, &line_buffer_length, file);
-    }
-    free(line_buffer);
-    line_buffer = NULL;
-    fflush(file);
-    fclose(file);
-    return line_count; 
+    char str[35];
+    int array_size;
+    fgets(str,MAX,file);
+    array_size = atoi(str);
+    return(array_size);
 }
 
+author * insert_author(author writer)
+{
+    int arr_size = get_arr_size("author.txt");
+    
+    author *author_arr = malloc(arr_size*sizeof(author)+sizeof(author));
+    author_arr = get_authors();
 
+    author_arr[arr_size] = writer;
+    return(author_arr);
+}

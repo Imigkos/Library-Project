@@ -3,21 +3,21 @@
 void main()
 {
 
-    int author_arr_size = get_lines("authors.txt");
-    author * author_arr = malloc(sizeof(author) * ((author_arr_size-1)/4)); 
+    int author_arr_size = get_arr_size("authors.txt");
+    author * author_arr = malloc(sizeof(author) * author_arr_size); 
     author_arr = get_authors();
     printf("%s",author_arr[1].name);
 
-    int book_arr_size = get_lines("book.txt");
-    book * book_arr = malloc(sizeof(book)*((book_arr_size-1)/3));
+    int book_arr_size = get_arr_size("book.txt");
+    book * book_arr = malloc(sizeof(book)*book_arr_size);
     book_arr = get_books();
     printf("%s",book_arr[1].title);
 
-    int writes_arr_size = get_lines("writes.txt");
-    writes * writes_arr = malloc(sizeof(writes)*((book_arr_size-1)/2));
+    int writes_arr_size = get_arr_size("writes.txt");
+    writes * writes_arr = malloc(sizeof(writes)*writes_arr_size);
     writes_arr = get_writes();
     printf("%s",writes_arr[1].title);
-
+    
 
     int exit = 0;
     while (exit == 0)
@@ -30,7 +30,26 @@ void main()
         switch (menu_choice)
         {
         case 1:
-            printf("add writer");
+            author new_writer;
+            int id;
+            int num_of_books;
+
+            char *buffer = malloc(512*sizeof(char));
+            printf("Enter the author's name");
+            scanf("%s",buffer);
+            new_writer.name = malloc(strlen(buffer)*sizeof(char));
+            strcpy(new_writer.name,buffer);
+            free(buffer);
+
+            char *buffer = malloc(512*sizeof(char));
+            printf("Enter the author's surname");
+            scanf("%s",buffer);
+            new_writer.surname = malloc(strlen(buffer)*sizeof(char));
+            strcpy(new_writer.surname,buffer);
+            free(buffer);
+
+
+
             break;
         case 2:
             printf("add book");

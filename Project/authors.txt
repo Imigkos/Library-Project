@@ -1,9 +1,9 @@
 2
-35
+1
 kip
 Bigt
 1
-36
+2
 fout
 stank
 1

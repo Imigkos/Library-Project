@@ -23,4 +23,4 @@ typedef struct writes
    int writer_id;
 } writes;
 
-author * get_authors();
+//author * get_authors();
