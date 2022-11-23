@@ -31,25 +31,34 @@ void main()
         {
         case 1:
             author new_writer;
-            int id;
-            int num_of_books;
 
             char *buffer = malloc(512*sizeof(char));
-            printf("Enter the author's name");
+            printf("\nEnter the author's name: ");
             scanf("%s",buffer);
             new_writer.name = malloc(strlen(buffer)*sizeof(char));
             strcpy(new_writer.name,buffer);
             free(buffer);
+            buffer = NULL;
 
-            char *buffer = malloc(512*sizeof(char));
-            printf("Enter the author's surname");
+            buffer = malloc(512*sizeof(char));
+            printf("\nEnter the author's surname: ");
             scanf("%s",buffer);
             new_writer.surname = malloc(strlen(buffer)*sizeof(char));
             strcpy(new_writer.surname,buffer);
             free(buffer);
+            buffer = NULL;
 
+            printf("\n%s\n%s",new_writer.name,new_writer.surname);
 
+            new_writer.writer_id = (author_arr_size+1);
+            new_writer.num_of_books = 0;
+            author_arr = insert_author(new_writer);
+            printf("\n%s\n%s\n%d\n%d",author_arr[author_arr_size].name,author_arr[author_arr_size].surname,author_arr[author_arr_size].writer_id,author_arr[author_arr_size].num_of_books);
+            author_arr_size++;
 
+            free(new_writer.name);
+            free(new_writer.surname);
+        
             break;
         case 2:
             printf("add book");

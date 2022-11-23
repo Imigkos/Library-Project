@@ -122,9 +122,8 @@ int get_arr_size(char *filename){
 
 author * insert_author(author writer)
 {
-    int arr_size = get_arr_size("author.txt");
-    
-    author *author_arr = malloc(arr_size*sizeof(author)+sizeof(author));
+    int arr_size = get_arr_size("authors.txt");
+    author *author_arr = malloc(arr_size*sizeof(author)+sizeof(author)*1);
     author_arr = get_authors();
 
     author_arr[arr_size] = writer;
