@@ -24,9 +24,11 @@ author * get_authors(){
 
         writer.surname = malloc(sizeof(char)*MAX);
         fgets(writer.surname,MAX,author_file);
+        writer.surname[strcspn(writer.surname, "\n")] = 0;
         
         writer.name = malloc (sizeof(char)*MAX);
         fgets(writer.name,MAX,author_file);
+        writer.name[strcspn(writer.name, "\n")] = 0;
 
         fgets(buffer,MAX,author_file);
         writer.num_of_books = atoi(buffer);
@@ -61,7 +63,7 @@ book * get_books(){
 
         book.title= malloc(sizeof(char)*MAX);
         fgets(book.title,MAX,book_file);
-        
+        book.title[strcspn(book.title, "\n")] = 0;
 
         fgets(buffer,MAX,book_file);
         book.price = atof(buffer);
@@ -96,6 +98,7 @@ writes * get_writes(){
 
         writes.title= malloc(sizeof(char)*MAX);
         fgets(writes.title,MAX,writes_file);
+        writes.title[strcspn(writes.title, "\n")] = 0;
 
         writes_arr[i] = writes;
         i++;
@@ -120,10 +123,8 @@ int get_arr_size(char *filename){
     return(array_size);
 }
 
-author * insert_author(author writer,int arr_size)
+author * insert_author(author writer,int arr_size,author *author_arr)
 {
-    author *author_arr = malloc(arr_size*sizeof(author)+sizeof(author));
-    author_arr = get_authors();
     author_arr[arr_size] = writer;
     return(author_arr);
 }
@@ -143,13 +144,13 @@ for (i = 0; i < author_arr_size; i++)
     {
         if (i==0)
         {
-           fprintf(author_file,"%d",author_arr_size);
+           fprintf(author_file,"%d\n",author_arr_size);
         }
         
-        fprintf(author_file, "%d", author_arr[i].writer_id);
-        fprintf(author_file, "%s", author_arr[i].surname);
-        fprintf(author_file, "%s", author_arr[i].name);
-        fprintf(author_file, "%d", author_arr[i].num_of_books);
+        fprintf(author_file, "%d\n", author_arr[i].writer_id);
+        fprintf(author_file, "%s\n", author_arr[i].surname);
+        fprintf(author_file, "%s\n", author_arr[i].name);
+        fprintf(author_file, "%d\n", author_arr[i].num_of_books);
     }
 
 if ((book_file= fopen("book.txt", "w")) == NULL)
@@ -162,12 +163,12 @@ for (i = 0; i < book_arr_size; i++)
     {
         if (i==0)
         {
-           fprintf(book_file,"%d",book_arr_size);
+           fprintf(book_file,"%d\n",book_arr_size);
         }
         
-        fprintf(book_file, "%d", book_arr[i].release_date);
-        fprintf(book_file, "%s", book_arr[i].title);
-        fprintf(book_file, "%f", book_arr[i].price);
+        fprintf(book_file, "%d\n", book_arr[i].release_date);
+        fprintf(book_file, "%s\n", book_arr[i].title);
+        fprintf(book_file, "%f\n", book_arr[i].price);
         
     }
 
@@ -181,11 +182,11 @@ for (i = 0; i < writes_arr_size; i++)
     {
         if (i==0)
         {
-           fprintf(writes_file,"%d",writes_arr_size);
+           fprintf(writes_file,"%d\n",writes_arr_size);
         }
         
-        fprintf(writes_file, "%d", writes_arr[i].writer_id);
-        fprintf(writes_file, "%s", writes_arr[i].title);
+        fprintf(writes_file, "%d\n", writes_arr[i].writer_id);
+        fprintf(writes_file, "%s\n", writes_arr[i].title);
            
     }
 

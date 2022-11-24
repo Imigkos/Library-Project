@@ -50,11 +50,13 @@ void main()
 
             new_writer.writer_id = (author_arr_size+1);
             new_writer.num_of_books = 0;
-            author_arr = insert_author(new_writer,author_arr_size);
-            printf("\n%s\n%s\n%d\n%d",author_arr[author_arr_size].name,author_arr[author_arr_size].surname,author_arr[author_arr_size].writer_id,author_arr[author_arr_size].num_of_books);
+            author_arr = realloc(author_arr,sizeof(author_arr)*sizeof(author)+sizeof(author_arr)*sizeof(author));
+            author_arr = insert_author(new_writer,author_arr_size,author_arr);
             author_arr_size++;
-            free(new_writer.name);
-            free(new_writer.surname);
+            for (int i = 0; i < author_arr_size; i++)
+    {
+           printf("\n%s\n%s\n%d\n%d\n",author_arr[i].name,author_arr[i].surname,author_arr[i].writer_id,author_arr[i].num_of_books);
+    }
         
             break;
         case 2:
@@ -75,6 +77,8 @@ void main()
         case 7:
             exit = 1;
             exit_library(author_arr,book_arr,writes_arr,author_arr_size,book_arr_size,writes_arr_size);
+            free(new_writer.name);
+            free(new_writer.surname);
             break;
         default:
             printf("bale 1-7 paliomalaka");
