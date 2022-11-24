@@ -25,7 +25,6 @@ void main()
         int menu_choice;
         printf("\n1)Insert new writer record\n2)Insert new book record\n3)Search a writer record\n4)Search a book record\n5)Delete a writer record\n6)Delete a book record\n7)Exit\n");
         scanf("%d", &menu_choice);
-        printf("%d", menu_choice);
 
         switch (menu_choice)
         {
@@ -63,7 +62,17 @@ void main()
             printf("add book");
             break;
         case 3:
-            printf("search writer");
+            char surname_target[MAX];
+            int target_author;
+            printf("\nEnter the author's surname: ");
+            scanf("%s", &surname_target);
+            target_author=search_author(author_arr,author_arr_size,surname_target);
+            if (target_author == -1){
+                printf("\n Author was not found in the database");
+            }
+            else{
+                printf("\nThe author's name is: %s",author_arr[target_author].name);
+            }
             break;
         case 4:
             printf("search book");

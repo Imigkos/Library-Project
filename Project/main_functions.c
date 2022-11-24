@@ -168,7 +168,7 @@ for (i = 0; i < book_arr_size; i++)
         
         fprintf(book_file, "%d\n", book_arr[i].release_date);
         fprintf(book_file, "%s\n", book_arr[i].title);
-        fprintf(book_file, "%f\n", book_arr[i].price);
+        fprintf(book_file, "%.2f\n", book_arr[i].price);
         
     }
 
@@ -199,4 +199,23 @@ for (i = 0; i < writes_arr_size; i++)
     fflush(writes_file);
     fclose(writes_file);
 
+}
+
+int search_author(author *author_arr, int array_size, char *surname){
+    int bottom= 0;
+    int mid;
+    int top = array_size - 1;
+   
+
+    while(bottom <= top){
+        mid = (bottom + top)/2;
+        if (strcasecmp(author_arr[mid].surname, surname) == 0){
+            return(mid);
+        } else if (strcasecmp(author_arr[mid].surname, surname) > 0){
+            top    = mid - 1;
+        } else if (strcasecmp(author_arr[mid].surname, surname) < 0){
+            bottom = mid + 1;
+        }
+    }
+    return -1;
 }
