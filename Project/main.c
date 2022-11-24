@@ -6,17 +6,17 @@ void main()
     int author_arr_size = get_arr_size("authors.txt");
     author * author_arr = malloc(sizeof(author) * author_arr_size); 
     author_arr = get_authors();
-    printf("%s",author_arr[1].name);
+   
 
     int book_arr_size = get_arr_size("book.txt");
     book * book_arr = malloc(sizeof(book)*book_arr_size);
     book_arr = get_books();
-    printf("%s",book_arr[1].title);
+    
 
     int writes_arr_size = get_arr_size("writes.txt");
     writes * writes_arr = malloc(sizeof(writes)*writes_arr_size);
     writes_arr = get_writes();
-    printf("%s",writes_arr[1].title);
+    
     
 
     int exit = 0;
@@ -52,10 +52,7 @@ void main()
             author_arr = realloc(author_arr,sizeof(author_arr)*sizeof(author)+sizeof(author_arr)*sizeof(author));
             author_arr = insert_author(new_writer,author_arr_size,author_arr);
             author_arr_size++;
-            for (int i = 0; i < author_arr_size; i++)
-    {
-           printf("\n%s\n%s\n%d\n%d\n",author_arr[i].name,author_arr[i].surname,author_arr[i].writer_id,author_arr[i].num_of_books);
-    }
+      
         
             break;
         case 2:
@@ -68,7 +65,7 @@ void main()
             scanf("%s", &surname_target);
             target_author=search_author(author_arr,author_arr_size,surname_target);
             if (target_author == -1){
-                printf("\n Author was not found in the database");
+                printf("\nAuthor was not found in the database");
             }
             else{
                 printf("\nThe author's name is: %s",author_arr[target_author].name);
@@ -84,13 +81,17 @@ void main()
             printf("delete book");
             break;
         case 7:
+              for (int i = 0; i < author_arr_size; i++)
+    {
+           printf("\n%s\n%s\n%d\n%d\n",author_arr[i].name,author_arr[i].surname,author_arr[i].writer_id,author_arr[i].num_of_books);
+    }
             exit = 1;
             exit_library(author_arr,book_arr,writes_arr,author_arr_size,book_arr_size,writes_arr_size);
             free(new_writer.name);
             free(new_writer.surname);
             break;
         default:
-            printf("bale 1-7 paliomalaka");
+            printf("bale 1-7 ");
         }
     }
 }

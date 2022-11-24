@@ -201,18 +201,43 @@ for (i = 0; i < writes_arr_size; i++)
 
 }
 
+int author_compare(author *writer1,author *writer2){
+    int surname_compare = strcasecmp(writer1->surname,writer2->surname);
+    return surname_compare;
+}
+
 int search_author(author *author_arr, int array_size, char *surname){
     int bottom= 0;
     int mid;
     int top = array_size - 1;
-   
+    char *buffer;
+
+    qsort(author_arr,array_size,sizeof(author),author_compare);
+    for (int i = 0; i < array_size; i++)
+    {
+           printf("\n%s\n%s\n%d\n%d\n",author_arr[i].name,author_arr[i].surname,author_arr[i].writer_id,author_arr[i].num_of_books);
+    }
+
+    // for (int i = 0; i < array_size; i++)
+    // {
+    //     for (int j = 0; j < array_size - 1 - i; j++)
+    //     {
+    //         if (strcmp(author_arr[j].surname, author_arr[j + 1].surname) > 0)
+    //         {
+    //             // swap array[j] and array[j+1]
+    //             strcpy(buffer, array[j]);
+    //             strcpy(array[j], array[j + 1]);
+    //             strcpy(array[j + 1], buffer);
+    //         }
+    //     }
+    // }
 
     while(bottom <= top){
         mid = (bottom + top)/2;
         if (strcasecmp(author_arr[mid].surname, surname) == 0){
             return(mid);
         } else if (strcasecmp(author_arr[mid].surname, surname) > 0){
-            top    = mid - 1;
+            top = mid - 1;
         } else if (strcasecmp(author_arr[mid].surname, surname) < 0){
             bottom = mid + 1;
         }
