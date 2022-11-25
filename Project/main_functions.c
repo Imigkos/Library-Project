@@ -293,10 +293,6 @@ int search_writes_by_title(writes *writes_arr,int array_size,char *title){
     int top = array_size - 1;
     char *buffer;
 
-for (int i = 0; i < array_size; i++)
-    {
-           printf("\n%s\n%d\n",writes_arr[i].title,writes_arr[i].writer_id);
-    }
 
     qsort(writes_arr,array_size,sizeof(writes),writes_title_compare);
 
@@ -352,4 +348,10 @@ void search_writes_by_id(writes *writes_arr,book *book_arr,int writes_array_size
     if (has_books == 0){
         printf("\nThere are no book entries regarding this author\n ");
     }
+}
+
+book * insert_book(book new_book,int arr_size,book *book_arr)
+{
+    book_arr[arr_size] = new_book;
+    return(book_arr);
 }

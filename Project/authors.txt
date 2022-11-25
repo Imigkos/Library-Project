@@ -1,6 +1,6 @@
-6
+7
 1
-Shake
+šú"V
 William
 0
 2
@@ -22,4 +22,8 @@ Harold
 6
 Simenon
 Georges
+0
+7
+Rellito
+Jorhe
 0
