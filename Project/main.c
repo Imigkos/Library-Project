@@ -68,10 +68,11 @@ void main()
             scanf("%s", &surname_target);
             target_author=search_author(author_arr,author_arr_size,surname_target);
             if (target_author == -1){
-                printf("\nAuthor was not found in the database");
+                printf("\nAuthor was not found in the database\n");
             }
             else{
-                printf("\nThe author's name is: %s",author_arr[target_author].name);
+                printf("\nThe author's full name is: %s %s",author_arr[target_author].name,author_arr[target_author].surname);
+                search_writes_by_id(writes_arr,book_arr,writes_arr_size,book_arr_size,author_arr[target_author].writer_id);
             }
             break;
         case 4:

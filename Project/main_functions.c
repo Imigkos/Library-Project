@@ -229,6 +229,18 @@ int writes_title_compare(writes *writes1,writes *writes2){
     int title_compare = strcasecmp(writes1->title,writes2->title);
     return title_compare;
 }
+int writes_id_compare(writes *writes1,writes *writes2){
+    if (writes1->writer_id>writes2->writer_id){
+        return 1;
+    }
+    else if (writes1->writer_id<writes2->writer_id)
+    {
+        return -1;
+    }
+    else{
+        return 0;
+    }
+}
 
 int search_author(author *author_arr, int array_size, char *surname){
     int bottom= 0;
@@ -321,4 +333,23 @@ int search_author_id(author *author_arr, int array_size, int id){
     }
     
     return -1;
+}
+
+void search_writes_by_id(writes *writes_arr,book *book_arr,int writes_array_size,int book_arr_size,int id){
+    int has_books = 0;
+    qsort(writes_arr,writes_array_size,sizeof(writes),writes_id_compare);
+    for(int i=0;i<writes_array_size;i++){
+        if (writes_arr[i].writer_id == id){
+            int found_book = search_book(book_arr,book_arr_size,writes_arr[i].title);
+            printf("\n-----------------");
+            printf("\n%s",book_arr[found_book].title);
+            printf("\n%d",book_arr[found_book].release_date);
+            printf("\n%.2f€",book_arr[found_book].price);
+            printf("\n-----------------");
+            has_books = 1;
+        }
+    }
+    if (has_books == 0){
+        printf("\nThere are no book entries regarding this author\n ");
+    }
 }
