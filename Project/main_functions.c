@@ -220,18 +220,29 @@ int author_id_compare(author *writer1,author *writer2){
     
 }
 
+int book_title_compare(book *book1,book *book2){
+    int title_compare = strcasecmp(book1->title,book2->title);
+    return title_compare;
+}
+
+int writes_title_compare(writes *writes1,writes *writes2){
+    int title_compare = strcasecmp(writes1->title,writes2->title);
+    return title_compare;
+}
+
 int search_author(author *author_arr, int array_size, char *surname){
     int bottom= 0;
     int mid;
     int top = array_size - 1;
-    char *buffer;
-
+    
+     
     qsort(author_arr,array_size,sizeof(author),author_surname_compare);
+
 
     while(bottom <= top){
         mid = (bottom + top)/2;
         if (strcasecmp(author_arr[mid].surname, surname) == 0){
-            qsort(author_arr,array_size,sizeof(author),author_id_compare);
+            
             return(mid);
         } else if (strcasecmp(author_arr[mid].surname, surname) > 0){
             top = mid - 1;
@@ -239,6 +250,75 @@ int search_author(author *author_arr, int array_size, char *surname){
             bottom = mid + 1;
         }
     }
+    
+    return -1;
+}
+
+int search_book(book *book_arr,int array_size,char *title){
+    int bottom= 0;
+    int mid;
+    int top = array_size - 1;
+    char *buffer;
+
+    qsort(book_arr,array_size,sizeof(book),book_title_compare);
+
+    while(bottom <= top){
+        mid = (bottom + top)/2;
+        if (strcasecmp(book_arr[mid].title ,title) == 0){
+            return(mid);
+        } else if (strcasecmp(book_arr[mid].title, title) > 0){
+            top = mid - 1;
+        } else if (strcasecmp(book_arr[mid].title, title) < 0){
+            bottom = mid + 1;
+        }
+    }
+    return -1;
+}
+
+int search_writes_by_title(writes *writes_arr,int array_size,char *title){
+    int bottom= 0;
+    int mid;
+    int top = array_size - 1;
+    char *buffer;
+
+for (int i = 0; i < array_size; i++)
+    {
+           printf("\n%s\n%d\n",writes_arr[i].title,writes_arr[i].writer_id);
+    }
+
+    qsort(writes_arr,array_size,sizeof(writes),writes_title_compare);
+
+    while(bottom <= top){
+        mid = (bottom + top)/2;
+        if (strcasecmp(writes_arr[mid].title ,title) == 0){
+            return(mid);
+        } else if (strcasecmp(writes_arr[mid].title, title) > 0){
+            top = mid - 1;
+        } else if (strcasecmp(writes_arr[mid].title, title) < 0){
+            bottom = mid + 1;
+        }
+    }
+    return -1;
+}
+
+int search_author_id(author *author_arr, int array_size, int id){
+    int bottom= 0;
+    int mid;
+    int top = array_size - 1;
+    char *buffer;
+
     qsort(author_arr,array_size,sizeof(author),author_id_compare);
+
+    while(bottom <= top){
+        mid = (bottom + top)/2;
+        if (author_arr[mid].writer_id==id){
+            return(mid);
+        } else if (author_arr[mid].writer_id>id) {
+            top = mid - 1;
+        } else if (author_arr[mid].writer_id<id){
+            bottom = mid + 1;
+        }
+    }
+    
     return -1;
 }

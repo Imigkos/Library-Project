@@ -72,7 +72,27 @@ void main()
             }
             break;
         case 4:
-            printf("search book");
+            char title_target[MAX];
+            int target_book;
+            printf("Enter the book's title: ");
+            scanf("%s", &title_target);
+            target_book = search_book(book_arr,book_arr_size,title_target);
+            if (target_book == -1){
+                printf("\nBook was not found in the database");
+            }
+            else{
+                int target_writes = search_writes_by_title(writes_arr,writes_arr_size,title_target);
+                int current_book_author = search_author_id(author_arr,author_arr_size,target_writes);
+                printf("\n-----------------");
+                printf("\n%s",book_arr[target_book].title);
+                printf("\n%d",book_arr[target_book].release_date);
+                printf("\n%.2f€",book_arr[target_book].price);
+                printf("\n-----------------");
+                printf("\nWritten By: ");
+                printf("\n-----------------");
+                printf("\n%s",author_arr[current_book_author].name);
+                printf("\n%s",author_arr[current_book_author].surname);
+            }
             break;
         case 5:
             printf("delete writer");
@@ -86,6 +106,7 @@ void main()
            printf("\n%s\n%s\n%d\n%d\n",author_arr[i].name,author_arr[i].surname,author_arr[i].writer_id,author_arr[i].num_of_books);
     }
             exit = 1;
+            qsort(author_arr,author_arr_size,sizeof(author),author_id_compare);
             exit_library(author_arr,book_arr,writes_arr,author_arr_size,book_arr_size,writes_arr_size);
             free(new_writer.name);
             free(new_writer.surname);
