@@ -291,7 +291,7 @@ for (int i = 0; i < array_size; i++)
     while(bottom <= top){
         mid = (bottom + top)/2;
         if (strcasecmp(writes_arr[mid].title ,title) == 0){
-            return(mid);
+            return(writes_arr[mid].writer_id);
         } else if (strcasecmp(writes_arr[mid].title, title) > 0){
             top = mid - 1;
         } else if (strcasecmp(writes_arr[mid].title, title) < 0){
