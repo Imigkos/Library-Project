@@ -123,9 +123,30 @@ int get_arr_size(char *filename){
     return(array_size);
 }
 
-author * insert_author(author writer,int arr_size,author *author_arr)
+author * insert_author(int arr_size,author *author_arr)
 {
-    author_arr[arr_size] = writer;
+    author new_writer;
+
+    char *buffer = malloc(512*sizeof(char));
+    printf("\nEnter the author's name: ");
+    scanf("%s",buffer);
+    new_writer.name = malloc(strlen(buffer)*sizeof(char));
+    strcpy(new_writer.name,buffer);
+    free(buffer);
+    buffer = NULL;
+
+    buffer = malloc(512*sizeof(char));
+    printf("\nEnter the author's surname: ");
+    scanf("%s",buffer);
+    new_writer.surname = malloc(strlen(buffer)*sizeof(char));
+    strcpy(new_writer.surname,buffer);
+    free(buffer);
+    buffer = NULL;
+
+    new_writer.writer_id = (arr_size+1);
+    new_writer.num_of_books = 0;
+    author_arr = realloc(author_arr,sizeof(author_arr)*sizeof(author)+sizeof(author_arr)*sizeof(author));
+    author_arr[arr_size] = new_writer;
     return(author_arr);
 }
 
@@ -350,8 +371,39 @@ void search_writes_by_id(writes *writes_arr,book *book_arr,int writes_array_size
     }
 }
 
-book * insert_book(book new_book,int arr_size,book *book_arr)
+book * insert_book(int arr_size,book *book_arr)
 {
+    book new_book;
+
+    char* buffer = malloc(512*sizeof(char));
+    printf("\nEnter the book's title: ");
+    fgets(buffer,MAX,stdin);
+    buffer[strcspn(buffer, "\n")] = 0;
+    new_book.title= malloc(strlen(buffer)*sizeof(char));
+    strcpy(new_book.title,buffer);
+    free(buffer);
+    buffer = NULL;
+
+    printf("\nEnter the book's release date: ");
+    scanf("%d",&new_book.release_date);
+
+    printf("\nEnter the book's price: ");
+    scanf("%f",&new_book.price);
+    book_arr = realloc(book_arr,sizeof(book_arr)*sizeof(book)+sizeof(book_arr)*sizeof(book));
     book_arr[arr_size] = new_book;
     return(book_arr);
+}
+
+writes *insert_writes(int writes_arr_size,int book_arr_size,int author_arr_size,char *surname,writes *writes_arr, book *book_arr,author* author_arr){
+    
+    writes new_writes;
+
+    new_writes.title = malloc(strlen(book_arr[book_arr_size-1].title)*sizeof(char));
+    strcpy(new_writes.title,book_arr[book_arr_size-1].title);
+
+    int index = search_author(author_arr,author_arr_size,surname);
+    new_writes.writer_id = author_arr[index].writer_id;
+    writes_arr = realloc(writes_arr,sizeof(writes_arr)*sizeof(writes)+sizeof(writes_arr)*sizeof(writes));
+    writes_arr[writes_arr_size] = new_writes;
+    return(writes_arr);
 }

@@ -1,6 +1,6 @@
-8
+7
 1
-Shake
+Shakespeare
 William
 0
 2
@@ -24,10 +24,6 @@ Simenon
 Georges
 0
 7
-Rellito
-Jorhe
-0
-8
-Relle
-Gorge
+Rellias
+George
 0

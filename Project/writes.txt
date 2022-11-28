@@ -1,8 +1,10 @@
-4
+5
 1
 A Midsummer Night's Dream
 1
 Hamlet
+7
+Lifeseeker
 2
 Murder on the Orient Express
 2
