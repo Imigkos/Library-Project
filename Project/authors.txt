@@ -1,6 +1,6 @@
-7
+8
 1
-šú"V
+Shake
 William
 0
 2
@@ -26,4 +26,8 @@ Georges
 7
 Rellito
 Jorhe
+0
+8
+Relle
+Gorge
 0

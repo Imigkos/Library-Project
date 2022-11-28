@@ -60,6 +60,7 @@ void main()
             break;
         case 2:
             book new_book;
+            char surname_target[MAX];
 
             buffer = malloc(512*sizeof(char));
             printf("\nEnter the book's title: ");
@@ -79,16 +80,17 @@ void main()
             book_arr = insert_book(new_book,book_arr_size,book_arr);
             book_arr_size++; 
 
-            // printf("\nGive the surname of the book's author: ")
-            // scanf("%s",);
+            printf("\nGive the surname of the book's author: ");
+            scanf("%s",&surname_target);
+            int target_author = search_author(author_arr,author_arr_size,surname_target);
+
 
             
 
 
             break;
         case 3:
-            char surname_target[MAX];
-            int target_author;
+            target_author = 0;
             printf("\nEnter the author's surname: ");
             scanf("%s", &surname_target);
             target_author=search_author(author_arr,author_arr_size,surname_target);
@@ -143,7 +145,6 @@ void main()
             free(author_arr);
             free(book_arr);
             free(writes_arr);
-            free(new_writer.surname);
             break;
         default:
             printf("bale 1-7 ");

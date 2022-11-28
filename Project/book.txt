@@ -1,10 +1,16 @@
-4
+6
 1595
 A Midsummer Night's Dream
 12.50
+2021
+Deathseeker
+7.99
 1599
 Hamlet
 7.99
+2021
+Lifeseeker
+4.99
 1934
 Murder on the Orient Express
 9.34
