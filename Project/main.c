@@ -43,7 +43,7 @@ void main()
             int target_author = search_author(author_arr, author_arr_size, surname_target);
             if (target_author == -1)
             {
-                printf("\nAuthor was not found in the database: \n");
+                printf("\nAuthor was not found in the database 😭 \n");
                 author_arr = insert_author(author_arr_size, author_arr);
                 author_arr_size++;
                 writes_arr = insert_writes(writes_arr_size, book_arr_size, author_arr_size, surname_target, writes_arr, book_arr, author_arr);
@@ -65,7 +65,7 @@ void main()
             target_author = search_author(author_arr, author_arr_size, surname_target);
             if (target_author == -1)
             {
-                printf("\nAuthor was not found in the database\n");
+                printf("\nAuthor was not found in the database 😭\n");
             }
             else
             {
@@ -82,7 +82,7 @@ void main()
             target_book = search_book(book_arr, book_arr_size, title_target);
             if (target_book == -1)
             {
-                printf("\nBook was not found in the database");
+                printf("\nBook was not found in the database 😭");
             }
             else
             {
@@ -117,7 +117,7 @@ void main()
             }
             else
             {
-                printf("\nThere is no author with that id x<\n");
+                printf("\nThere is no author with that id 🤓\n");
             }
             break;
         case 6:
@@ -137,7 +137,7 @@ void main()
             }
             else
             {
-                printf("\nBook was not found :P");
+                printf("\nBook was not found 😭");
             }
             author_arr = update_num_of_books(author_arr_size, writes_arr_size, author_arr, writes_arr);
 
@@ -152,7 +152,7 @@ void main()
             free(writes_arr);
             break;
         default:
-            printf("bale 1-7 ");
+            printf("\nEnter a valid choice!! 🤬😡💢");
         }
     }
 }
