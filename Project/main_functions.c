@@ -329,7 +329,7 @@ int search_book(book *book_arr, int array_size, char *title)
     return -1;
 }
 
-int search_writes_by_title(writes *writes_arr, int array_size, char *title)
+int search_writes_by_title(writes *writes_arr, int array_size, char *title, int index)
 {
     int bottom = 0;
     int mid;
@@ -343,7 +343,14 @@ int search_writes_by_title(writes *writes_arr, int array_size, char *title)
         mid = (bottom + top) / 2;
         if (strcasecmp(writes_arr[mid].title, title) == 0)
         {
-            return (writes_arr[mid].writer_id);
+            if (index == 0)
+            {
+                return (writes_arr[mid].writer_id);
+            }
+            else
+            {
+                return mid;
+            }
         }
         else if (strcasecmp(writes_arr[mid].title, title) > 0)
         {
@@ -447,13 +454,13 @@ writes *insert_writes(int writes_arr_size, int book_arr_size, int author_arr_siz
     return (writes_arr);
 }
 
-book *delete_book(book *book_arr, char *title, int book_arr_size, int book_index)
+book *delete_book(book *book_arr, int book_arr_size, int book_index)
 {
 
     if (book_index != -1)
     {
         book *new_book_arr;
-        new_book_arr = malloc(sizeof(book_arr_size - 1) * sizeof(book));
+        new_book_arr = malloc((book_arr_size - 1) * sizeof(book));
         int current_pos = 0;
         for (int i = 0; i < book_arr_size; i++)
         {
@@ -463,7 +470,7 @@ book *delete_book(book *book_arr, char *title, int book_arr_size, int book_index
                 current_pos++;
             }
         }
-        return(new_book_arr);
+        return (new_book_arr);
     }
     else
     {
@@ -472,4 +479,47 @@ book *delete_book(book *book_arr, char *title, int book_arr_size, int book_index
     }
 }
 
-// writes *delete_writes_title
+writes *delete_writes_title(int writes_arr_size, writes *writes_arr, char *title)
+{
+
+    int writes_index = search_writes_by_title(writes_arr, writes_arr_size, title, 1);
+
+    if (writes_index != -1)
+    {
+        writes *new_writes_arr;
+        new_writes_arr = malloc((writes_arr_size - 1) * sizeof(writes));
+        int current_pos = 0;
+        for (int i = 0; i < writes_arr_size; i++)
+        {
+            if (i != writes_index)
+            {
+                new_writes_arr[current_pos] = writes_arr[i];
+                current_pos++;
+            }
+        }
+        return (new_writes_arr);
+    }
+    else
+    {
+        printf("\nSomething has gone very wrong x<");
+        return (writes_arr);
+    }
+}
+
+author *update_num_of_books(int author_arr_size, int writes_arr_size, author *author_arr, writes *writes_arr)
+{
+    int books_written;
+    for (int i = 0; i < author_arr_size; i++)
+    {
+        books_written = 0;
+        for (int j = 0; j < writes_arr_size; j++)
+        {
+            if (writes_arr[j].writer_id == author_arr[i].writer_id)
+            {
+                books_written++;
+            }
+        }
+        author_arr[i].num_of_books = books_written;
+    }
+    return(author_arr);
+}

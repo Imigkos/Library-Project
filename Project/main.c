@@ -14,6 +14,7 @@ void main()
     int writes_arr_size = get_arr_size("writes.txt");
     writes *writes_arr = malloc(sizeof(writes) * writes_arr_size);
     writes_arr = get_writes();
+    author_arr = update_num_of_books(author_arr_size,writes_arr_size,author_arr,writes_arr);
 
     int exit = 0;
     while (exit == 0)
@@ -54,6 +55,7 @@ void main()
                 writes_arr = insert_writes(writes_arr_size, book_arr_size, author_arr_size, surname_target, writes_arr, book_arr, author_arr);
                 writes_arr_size++;
             }
+            author_arr = update_num_of_books(author_arr_size,writes_arr_size,author_arr,writes_arr);
 
             break;
         case 3:
@@ -84,7 +86,7 @@ void main()
             }
             else
             {
-                int target_writes = search_writes_by_title(writes_arr, writes_arr_size, title_target);
+                int target_writes = search_writes_by_title(writes_arr, writes_arr_size, title_target,0);
                 int current_book_author = search_author_id(author_arr, author_arr_size, target_writes);
                 printf("\n-----------------");
                 printf("\n%s", book_arr[target_book].title);
@@ -99,7 +101,10 @@ void main()
             }
             break;
         case 5:
-            printf("delete writer");
+            int id_delete = -1;
+            printf("\nEnter the id of the author you want to delete: ");
+            scanf("%d",id_delete);
+            if (id_delete >= author_arr_size ||
             break;
         case 6:
 
@@ -111,13 +116,16 @@ void main()
 
             if (book_index != -1)
             {
-                book_arr = delete_book(book_arr, book_title, book_arr_size, book_index);
+                book_arr = delete_book(book_arr, book_arr_size, book_index);
                 book_arr_size--;
+                writes_arr = delete_writes_title(writes_arr_size,writes_arr,book_title);
+                writes_arr_size--;
             }
             else
             {
                 printf("\nBook was not found :P");
             }
+            author_arr = update_num_of_books(author_arr_size,writes_arr_size,author_arr,writes_arr);
 
             break;
 
