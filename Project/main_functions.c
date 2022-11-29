@@ -1,5 +1,5 @@
 #include "init.h"
-#define MAX 35
+#define MAX 100
 
 author *get_authors()
 {
@@ -13,7 +13,7 @@ author *get_authors()
     }
     int entries = 0;
     int i = 0;
-    char buffer[35];
+    char buffer[MAX];
 
     fgets(buffer, MAX, author_file);
     entries = atoi(buffer);
@@ -53,7 +53,7 @@ book *get_books()
     }
     int entries = 0;
     int i = 0;
-    char buffer[35];
+    char buffer[MAX];
 
     fgets(buffer, MAX, book_file);
     entries = atoi(buffer);
@@ -89,7 +89,7 @@ writes *get_writes()
     }
     int entries = 0;
     int i = 0;
-    char buffer[35];
+    char buffer[MAX];
 
     fgets(buffer, MAX, writes_file);
     entries = atoi(buffer);
@@ -119,7 +119,7 @@ int get_arr_size(char *filename)
         fprintf(stderr, "file does not exist\n");
         exit(1);
     }
-    char str[35];
+    char str[MAX];
     int array_size;
     fgets(str, MAX, file);
     array_size = atoi(str);
@@ -148,7 +148,7 @@ author *insert_author(int arr_size, author *author_arr)
 
     new_writer.writer_id = (arr_size + 1);
     new_writer.num_of_books = 0;
-    author_arr = realloc(author_arr, sizeof(author_arr) * sizeof(author) + sizeof(author_arr) * sizeof(author));
+    author_arr = realloc(author_arr, arr_size*sizeof(author));
     author_arr[arr_size] = new_writer;
     return (author_arr);
 }
@@ -285,7 +285,6 @@ int search_author(author *author_arr, int array_size, char *surname)
         mid = (bottom + top) / 2;
         if (strcasecmp(author_arr[mid].surname, surname) == 0)
         {
-
             return (mid);
         }
         else if (strcasecmp(author_arr[mid].surname, surname) > 0)
@@ -434,7 +433,7 @@ book *insert_book(int arr_size, book *book_arr)
 
     printf("\nEnter the book's price: ");
     scanf("%f", &new_book.price);
-    book_arr = realloc(book_arr, sizeof(book_arr) * sizeof(book) + sizeof(book_arr) * sizeof(book));
+    book_arr = realloc(book_arr, arr_size*sizeof(book));
     book_arr[arr_size] = new_book;
     return (book_arr);
 }
@@ -449,7 +448,7 @@ writes *insert_writes(int writes_arr_size, int book_arr_size, int author_arr_siz
 
     int index = search_author(author_arr, author_arr_size, surname);
     new_writes.writer_id = author_arr[index].writer_id;
-    writes_arr = realloc(writes_arr, sizeof(writes_arr) * sizeof(writes) + sizeof(writes_arr) * sizeof(writes));
+    writes_arr = realloc(writes_arr, writes_arr_size*sizeof(writes));
     writes_arr[writes_arr_size] = new_writes;
     return (writes_arr);
 }
