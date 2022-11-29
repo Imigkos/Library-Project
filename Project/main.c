@@ -14,7 +14,7 @@ void main()
     int writes_arr_size = get_arr_size("writes.txt");
     writes *writes_arr = malloc(sizeof(writes) * writes_arr_size);
     writes_arr = get_writes();
-    author_arr = update_num_of_books(author_arr_size,writes_arr_size,author_arr,writes_arr);
+    author_arr = update_num_of_books(author_arr_size, writes_arr_size, author_arr, writes_arr);
 
     int exit = 0;
     while (exit == 0)
@@ -55,7 +55,7 @@ void main()
                 writes_arr = insert_writes(writes_arr_size, book_arr_size, author_arr_size, surname_target, writes_arr, book_arr, author_arr);
                 writes_arr_size++;
             }
-            author_arr = update_num_of_books(author_arr_size,writes_arr_size,author_arr,writes_arr);
+            author_arr = update_num_of_books(author_arr_size, writes_arr_size, author_arr, writes_arr);
 
             break;
         case 3:
@@ -86,7 +86,7 @@ void main()
             }
             else
             {
-                int target_writes = search_writes_by_title(writes_arr, writes_arr_size, title_target,0);
+                int target_writes = search_writes_by_title(writes_arr, writes_arr_size, title_target, 0);
                 int current_book_author = search_author_id(author_arr, author_arr_size, target_writes);
                 printf("\n-----------------");
                 printf("\n%s", book_arr[target_book].title);
@@ -103,8 +103,21 @@ void main()
         case 5:
             int id_delete = -1;
             printf("\nEnter the id of the author you want to delete: ");
-            scanf("%d",id_delete);
-            if (id_delete >= author_arr_size ||
+            scanf("%d", &id_delete);
+            if (id_delete > 0)
+            {
+                int author_index = search_author_id(author_arr, author_arr_size, id_delete);
+                book_arr = mass_book_delete(writes_arr,book_arr,writes_arr_size,book_arr_size,id_delete);
+                book_arr_size = book_arr_size - author_arr[author_index].num_of_books;
+                writes_arr = delete_writes_id(writes_arr_size,writes_arr,id_delete,author_arr[author_index].num_of_books);
+                writes_arr_size = writes_arr_size - author_arr[author_index].num_of_books;
+                author_arr = delete_author(author_arr_size, author_arr, author_index);
+                author_arr_size--;
+            }
+            else
+            {
+                printf("\nThere is no author with that id: ");
+            }
             break;
         case 6:
 
@@ -118,23 +131,24 @@ void main()
             {
                 book_arr = delete_book(book_arr, book_arr_size, book_index);
                 book_arr_size--;
-                writes_arr = delete_writes_title(writes_arr_size,writes_arr,book_title);
+                writes_arr = delete_writes_title(writes_arr_size, writes_arr, book_title);
                 writes_arr_size--;
             }
             else
             {
                 printf("\nBook was not found :P");
             }
-            author_arr = update_num_of_books(author_arr_size,writes_arr_size,author_arr,writes_arr);
+            author_arr = update_num_of_books(author_arr_size, writes_arr_size, author_arr, writes_arr);
 
             break;
 
         case 7:
             exit = 1;
-            for (int i = 0;i<book_arr_size;i++){
-                printf("-----------\n%s",book_arr[i].title);
-                printf("\n%.2f",book_arr[i].price);
-                printf("\n%d",book_arr[i].release_date);
+            for (int i = 0; i < book_arr_size; i++)
+            {
+                printf("-----------\n%s", book_arr[i].title);
+                printf("\n%.2f", book_arr[i].price);
+                printf("\n%d", book_arr[i].release_date);
                 printf("\n-----------");
             }
             // for (int i = 0;i<author_arr_size;i++){

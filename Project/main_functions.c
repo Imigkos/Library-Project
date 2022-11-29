@@ -521,5 +521,55 @@ author *update_num_of_books(int author_arr_size, int writes_arr_size, author *au
         }
         author_arr[i].num_of_books = books_written;
     }
-    return(author_arr);
+    return (author_arr);
+}
+
+author *delete_author(int author_arr_size, author *author_arr, int author_index)
+{
+
+    author *new_author_arr;
+    new_author_arr = malloc((author_arr_size - 1) * sizeof(author));
+    int current_pos = 0;
+    for (int i = 0; i < author_arr_size; i++)
+    {
+        if (i != author_index)
+        {
+            new_author_arr[current_pos] = author_arr[i];
+            current_pos++;
+        }
+    }
+    return (new_author_arr);
+}
+
+writes *delete_writes_id(int writes_arr_size, writes *writes_arr, int id, int book_num)
+{
+
+    writes *new_writes_arr;
+    new_writes_arr = malloc((writes_arr_size - book_num) * sizeof(writes));
+    int current_pos = 0;
+    for (int i = 0; i < writes_arr_size; i++)
+    {
+        if (writes_arr[i].writer_id != id)
+        {
+            new_writes_arr[current_pos] = writes_arr[i];
+            current_pos++;
+        }
+    }
+    return (new_writes_arr);
+}
+
+book *mass_book_delete(writes *writes_arr, book *book_arr, int writes_array_size, int book_arr_size, int id)
+{
+    int has_books = 0;
+    qsort(writes_arr, writes_array_size, sizeof(writes), writes_id_compare);
+    for (int i = 0; i < writes_array_size; i++)
+    {
+        if (writes_arr[i].writer_id == id)
+        {
+            int found_book = search_book(book_arr, book_arr_size, writes_arr[i].title);
+            book_arr = delete_book(book_arr, book_arr_size, found_book);
+            book_arr_size--;
+        }
+    }
+    return book_arr;
 }

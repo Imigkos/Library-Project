@@ -1,8 +1,4 @@
-7
-1
-Shake
-William
-2
+5
 2
 Christie
 Agatha
@@ -23,7 +19,3 @@ Harold
 Simenon
 Georges
 0
-7
-Rellito
-Jorhito
-2

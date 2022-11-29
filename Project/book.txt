@@ -1,19 +1,7 @@
-6
-1595
-A Midsummer Night's Dream
-12.50
-1599
-Hamlet
-7.99
+2
 1934
 Murder on the Orient Express
 9.34
 1926
 The Murder of Roger Ackroyd
 24.99
-2021
-Lifeseeker
-7.99
-2023
-Deathseeker
-13.30
