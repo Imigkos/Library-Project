@@ -102,10 +102,11 @@ void main()
             break;
         case 5:
             int id_delete = -1;
+            print_arr(author_arr,author_arr_size);
             printf("\nEnter the id of the author you want to delete: ");
             scanf("%d", &id_delete);
-            if (id_delete > 0)
-            {
+            if (search_author_id(author_arr,author_arr_size,id_delete) != -1){
+        
                 int author_index = search_author_id(author_arr, author_arr_size, id_delete);
                 book_arr = mass_book_delete(writes_arr,book_arr,writes_arr_size,book_arr_size,id_delete);
                 book_arr_size = book_arr_size - author_arr[author_index].num_of_books;
@@ -116,7 +117,7 @@ void main()
             }
             else
             {
-                printf("\nThere is no author with that id: ");
+                printf("\nThere is no author with that id x<\n");
             }
             break;
         case 6:
@@ -144,20 +145,6 @@ void main()
 
         case 7:
             exit = 1;
-            for (int i = 0; i < book_arr_size; i++)
-            {
-                printf("-----------\n%s", book_arr[i].title);
-                printf("\n%.2f", book_arr[i].price);
-                printf("\n%d", book_arr[i].release_date);
-                printf("\n-----------");
-            }
-            // for (int i = 0;i<author_arr_size;i++){
-            //     printf("-----------\n%s",author_arr[i].name);
-            //     printf("\n%d",author_arr[i].writer_id);
-            //     printf("\n%d",author_arr[i].num_of_books);
-            //     printf("\n-----------");
-            // }
-
             qsort(author_arr, author_arr_size, sizeof(author), author_id_compare);
             exit_library(author_arr, book_arr, writes_arr, author_arr_size, book_arr_size, writes_arr_size);
             free(author_arr);

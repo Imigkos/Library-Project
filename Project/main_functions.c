@@ -573,3 +573,14 @@ book *mass_book_delete(writes *writes_arr, book *book_arr, int writes_array_size
     }
     return book_arr;
 }
+
+void print_arr(author *author_arr, int author_arr_size)
+{
+    printf("---------------");
+    for (int i = 0; i < author_arr_size; i++)
+    {
+        printf("\n%s", author_arr[i].name);
+        printf(" %s", author_arr[i].surname);
+        printf("\nId: %d\n---------------", author_arr[i].writer_id);
+    }
+}
