@@ -22,6 +22,8 @@ void main()
         switch (menu_choice)
         {
         case 1:
+            a_list = insert_author(a_list);
+            print_a_list(a_list);
             break;
         case 2:
             break;

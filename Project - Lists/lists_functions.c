@@ -161,3 +161,31 @@ void print_w_list(const writes_list *list){
         cur = cur->next;
     }
 }
+
+author_list *insert_author(author_list *a_list){
+    author *new_author;
+
+    char *buffer = malloc(512 * sizeof(char));
+    printf("\nEnter the author's name: ");
+    scanf("%s", buffer);
+    new_author->name = malloc(strlen(buffer) * sizeof(char));
+    strcpy(new_author->name,buffer);
+    free(buffer);
+    buffer = NULL;
+
+    buffer = malloc(512 * sizeof(char));
+    printf("\nEnter the author's surname: ");
+    scanf("%s", buffer);
+    new_author->surname = malloc(strlen(buffer) * sizeof(char));
+    strcpy(new_author->surname, buffer);
+    free(buffer);
+    buffer = NULL;
+
+    new_author->writer_id = (++a_list->entries);
+    new_author->num_of_books = 0;
+
+    new_author->next = a_list->head;
+    a_list->head = new_author;
+
+    return a_list;
+}
