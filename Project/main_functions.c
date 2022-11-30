@@ -405,8 +405,9 @@ int search_author_id(author *author_arr, int array_size, int id)
 void search_writes_by_id(writes *writes_arr, book *book_arr, int writes_array_size, int book_arr_size, int id)
 {
     int has_books = 0;
+    int i;
     qsort(writes_arr, writes_array_size, sizeof(writes), writes_id_compare);
-    for (int i = 0; i < writes_array_size; i++)
+    for (i = 0; i < writes_array_size; i++)
     {
         if (writes_arr[i].writer_id == id)
         {
@@ -414,7 +415,7 @@ void search_writes_by_id(writes *writes_arr, book *book_arr, int writes_array_si
             printf("\n-----------------");
             printf("\n%s", book_arr[found_book].title);
             printf("\n%d", book_arr[found_book].release_date);
-            printf("\n%.2f€", book_arr[found_book].price);
+            printf("\n%.2f", book_arr[found_book].price);
             printf("\n-----------------");
             has_books = 1;
         }
@@ -468,10 +469,11 @@ book *delete_book(book *book_arr, int book_arr_size, int book_index)
 
     if (book_index != -1)
     {
+    	int i;
         book *new_book_arr;
         new_book_arr = malloc((book_arr_size - 1) * sizeof(book));
         int current_pos = 0;
-        for (int i = 0; i < book_arr_size; i++)
+        for (i = 0; i < book_arr_size; i++)
         {
             if (i != book_index)
             {
@@ -495,10 +497,11 @@ writes *delete_writes_title(int writes_arr_size, writes *writes_arr, char *title
 
     if (writes_index != -1)
     {
+    	int i;
         writes *new_writes_arr;
         new_writes_arr = malloc((writes_arr_size - 1) * sizeof(writes));
         int current_pos = 0;
-        for (int i = 0; i < writes_arr_size; i++)
+        for (i = 0; i < writes_arr_size; i++)
         {
             if (i != writes_index)
             {
@@ -517,11 +520,13 @@ writes *delete_writes_title(int writes_arr_size, writes *writes_arr, char *title
 
 author *update_num_of_books(int author_arr_size, int writes_arr_size, author *author_arr, writes *writes_arr)
 {
+	int i;
+	int j;
     int books_written;
-    for (int i = 0; i < author_arr_size; i++)
+    for (i = 0; i < author_arr_size; i++)
     {
         books_written = 0;
-        for (int j = 0; j < writes_arr_size; j++)
+        for (j = 0; j < writes_arr_size; j++)
         {
             if (writes_arr[j].writer_id == author_arr[i].writer_id)
             {
@@ -535,11 +540,11 @@ author *update_num_of_books(int author_arr_size, int writes_arr_size, author *au
 
 author *delete_author(int author_arr_size, author *author_arr, int author_index)
 {
-
+	int i;
     author *new_author_arr;
     new_author_arr = malloc((author_arr_size - 1) * sizeof(author));
     int current_pos = 0;
-    for (int i = 0; i < author_arr_size; i++)
+    for (i = 0; i < author_arr_size; i++)
     {
         if (i != author_index)
         {
@@ -552,11 +557,11 @@ author *delete_author(int author_arr_size, author *author_arr, int author_index)
 
 writes *delete_writes_id(int writes_arr_size, writes *writes_arr, int id, int book_num)
 {
-
+	int i;
     writes *new_writes_arr;
     new_writes_arr = malloc((writes_arr_size - book_num) * sizeof(writes));
     int current_pos = 0;
-    for (int i = 0; i < writes_arr_size; i++)
+    for (i = 0; i < writes_arr_size; i++)
     {
         if (writes_arr[i].writer_id != id)
         {
@@ -569,9 +574,10 @@ writes *delete_writes_id(int writes_arr_size, writes *writes_arr, int id, int bo
 
 book *mass_book_delete(writes *writes_arr, book *book_arr, int writes_array_size, int book_arr_size, int id)
 {
+	int i;
     int has_books = 0;
     qsort(writes_arr, writes_array_size, sizeof(writes), writes_id_compare);
-    for (int i = 0; i < writes_array_size; i++)
+    for (i = 0; i < writes_array_size; i++)
     {
         if (writes_arr[i].writer_id == id)
         {
@@ -585,8 +591,9 @@ book *mass_book_delete(writes *writes_arr, book *book_arr, int writes_array_size
 
 void print_arr(author *author_arr, int author_arr_size)
 {
+	int i;
     printf("---------------");
-    for (int i = 0; i < author_arr_size; i++)
+    for (i = 0; i < author_arr_size; i++)
     {
         printf("\n%s", author_arr[i].name);
         printf(" %s", author_arr[i].surname);
