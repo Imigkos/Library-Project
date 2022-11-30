@@ -4,8 +4,13 @@ void main()
 {
     author_list *a_list;
     a_list = get_authors();
-    print_a_list(a_list);
 
+    book_list *b_list;
+    b_list = get_books();
+
+    writes_list *w_list;
+    w_list = get_writes();
+    
     int exit = 0;
     while (exit == 0)
     {

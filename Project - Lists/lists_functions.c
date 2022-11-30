@@ -43,6 +43,83 @@ author_list* get_authors(){
     
 }
 
+book_list* get_books(){
+
+    book_list *b_list = malloc(sizeof(book_list));
+    FILE *book_file;
+
+    int entries = 0;
+    int i = 0;
+    char buffer[MAX];
+
+    
+    if ((book_file = fopen("book.txt", "r")) == NULL)
+    {
+        printf("File does not exist or cannot be opened.\n");
+        exit(1);
+    }
+    fgets(buffer, MAX, book_file);
+    b_list->entries = atoi(buffer);
+    while (fgets(buffer, MAX, book_file))
+    {
+       book *new_book;
+       new_book = malloc(sizeof(book));
+       new_book->release_date = atoi(buffer);
+
+       new_book->title = malloc(sizeof(char)*MAX);
+       fgets(new_book->title,MAX,book_file);
+       new_book->title[strcspn(new_book->title,"\n")] = 0;
+
+       fgets(buffer,MAX,book_file);
+       new_book->price = atof(buffer);
+
+       new_book->next = b_list->head;
+       b_list->head = new_book;
+
+    }
+    
+    return(b_list);
+    
+}
+
+writes_list* get_writes(){
+
+    writes_list *w_list = malloc(sizeof(writes_list));
+    FILE *writes_file;
+
+    int entries = 0;
+    int i = 0;
+    char buffer[MAX];
+
+    
+    if ((writes_file = fopen("writes.txt", "r")) == NULL)
+    {
+        printf("File does not exist or cannot be opened.\n");
+        exit(1);
+    }
+    fgets(buffer, MAX, writes_file);
+    w_list->entries = atoi(buffer);
+    while (fgets(buffer, MAX, writes_file))
+    {
+       writes *new_writes;
+       new_writes = malloc(sizeof(writes));
+       new_writes->writer_id = atoi(buffer);
+
+       new_writes->title = malloc(sizeof(char)*MAX);
+       fgets(new_writes->title,MAX,writes_file);
+       new_writes->title[strcspn(new_writes->title,"\n")] = 0;
+
+       new_writes->next = w_list->head;
+       w_list->head = new_writes;
+
+    }
+    
+    return(w_list);
+    
+}
+
+
+
 void print_a_list(const author_list *list){
     author *cur;
     cur = list->head;
@@ -53,6 +130,33 @@ void print_a_list(const author_list *list){
         printf("%s\n", cur->name);
         printf("%d\n", cur->writer_id);
         printf("%d\n", cur->num_of_books);
+        printf("------------\n");
+        cur = cur->next;
+    }
+}
+
+void print_b_list(const book_list *list){
+    book *cur;
+    cur = list->head;
+     while (cur)
+    {
+        printf("------------\n");
+        printf("%s\n", cur->title);
+        printf("%.2f\n", cur->price);
+        printf("%d\n", cur->release_date);
+        printf("------------\n");
+        cur = cur->next;
+    }
+}
+
+void print_w_list(const writes_list *list){
+    writes *cur;
+    cur = list->head;
+     while (cur)
+    {
+        printf("------------\n");
+        printf("%s\n", cur->title);
+        printf("%d\n", cur->writer_id);
         printf("------------\n");
         cur = cur->next;
     }

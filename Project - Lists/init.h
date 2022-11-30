@@ -8,6 +8,7 @@ typedef struct book
    char *title;
    int release_date;
    float price;
+   struct book *next;
 } book;
 
    typedef struct author
@@ -23,6 +24,7 @@ typedef struct writes
 {
    char *title;
    int writer_id;
+   struct writes *next;
 } writes;
 
 typedef struct author_list
