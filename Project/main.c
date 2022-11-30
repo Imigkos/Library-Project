@@ -33,13 +33,14 @@ void main()
 
             break;
         case 2:
+            puts("");
             char surname_target[MAX];
 
             book_arr = insert_book(book_arr_size, book_arr);
             book_arr_size++;
 
             printf("\nGive the surname of the book's author: ");
-            scanf("%s", &surname_target);
+            scanf("%s", surname_target);
             int target_author = search_author(author_arr, author_arr_size, surname_target);
             if (target_author == -1)
             {
@@ -61,7 +62,7 @@ void main()
         case 3:
             target_author = 0;
             printf("\nEnter the author's surname: ");
-            scanf("%s", &surname_target);
+            scanf("%s", surname_target);
             target_author = search_author(author_arr, author_arr_size, surname_target);
             if (target_author == -1)
             {
@@ -74,6 +75,7 @@ void main()
             }
             break;
         case 4:
+            puts("");
             char title_target[MAX];
             int target_book;
             printf("Enter the book's title: ");
@@ -121,7 +123,7 @@ void main()
             }
             break;
         case 6:
-
+            puts("");
             char *book_title = malloc(512 * sizeof(char));
             printf("\nEnter the title of the book you want to delete: ");
             fgets(book_title, MAX, stdin);

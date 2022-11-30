@@ -223,19 +223,23 @@ void exit_library(author *author_arr, book *book_arr, writes *writes_arr, int au
     fclose(writes_file);
 }
 
-int author_surname_compare(author *writer1, author *writer2)
+int author_surname_compare(const void* writer1,const void* writer2)
 {
-    int surname_compare = strcasecmp(writer1->surname, writer2->surname);
+    author* writer1_t =(author*)writer1;
+    author* writer2_t =(author*)writer2;
+    int surname_compare = strcasecmp(writer1_t->surname, writer2_t->surname);
     return surname_compare;
 }
 
-int author_id_compare(author *writer1, author *writer2)
+int author_id_compare(const void* writer1,const void* writer2)
 {
-    if (writer1->writer_id > writer2->writer_id)
+    author* writer1_t =(author*)writer1;
+    author* writer2_t =(author*)writer2;
+    if (writer1_t->writer_id > writer2_t->writer_id)
     {
         return 1;
     }
-    else if (writer1->writer_id < writer2->writer_id)
+    else if (writer1_t->writer_id < writer2_t->writer_id)
     {
         return -1;
     }
@@ -245,24 +249,30 @@ int author_id_compare(author *writer1, author *writer2)
     }
 }
 
-int book_title_compare(book *book1, book *book2)
+int book_title_compare(const void* book1, const void* book2)
 {
-    int title_compare = strcasecmp(book1->title, book2->title);
+    book* book1_t = (book*)book1;
+    book* book2_t = (book*)book2;
+    int title_compare = strcasecmp(book1_t->title, book2_t->title);
     return title_compare;
 }
 
-int writes_title_compare(writes *writes1, writes *writes2)
+int writes_title_compare(const void* writes1,const void* writes2)
 {
-    int title_compare = strcasecmp(writes1->title, writes2->title);
+    writes* writes1_t = (writes*)writes1;
+    writes* writes2_t = (writes*)writes2;
+    int title_compare = strcasecmp(writes1_t->title, writes2_t->title);
     return title_compare;
 }
-int writes_id_compare(writes *writes1, writes *writes2)
+int writes_id_compare(const void* writes1,const void* writes2)
 {
-    if (writes1->writer_id > writes2->writer_id)
+    writes* writes1_t = (writes*)writes1;
+    writes* writes2_t = (writes*)writes2;
+    if (writes1_t->writer_id > writes2_t->writer_id)
     {
         return 1;
     }
-    else if (writes1->writer_id < writes2->writer_id)
+    else if (writes1_t->writer_id < writes2_t->writer_id)
     {
         return -1;
     }
