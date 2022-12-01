@@ -10,6 +10,10 @@ void main()
 
     writes_list *w_list;
     w_list = get_writes();
+
+    // print_a_list(a_list);
+    sort_authors(a_list);
+    // print_a_list(a_list);
     
     int exit = 0;
     while (exit == 0)
@@ -22,12 +26,24 @@ void main()
         switch (menu_choice)
         {
         case 1:
-            a_list = insert_author(a_list);
+            insert_author(a_list);
             print_a_list(a_list);
             break;
         case 2:
+            char surname_target[MAX];
             break;
         case 3:
+            author *target_author;
+            printf("\nEnter the author's surname: ");
+            scanf("%s", surname_target);
+            target_author = search_author(a_list,surname_target);
+            if (target_author == NULL){
+                printf("\nAuthor was not found in the database\n");
+            }
+            else
+            {
+                printf("\nThe author's full name is: %s %s", target_author->name,target_author->surname);
+            }
             break;
         case 4:
             break;
