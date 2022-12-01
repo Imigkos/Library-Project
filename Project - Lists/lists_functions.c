@@ -122,6 +122,20 @@ void print_a_list(const author_list *list)
     }
 }
 
+void print_a_node(author *a)
+{
+    printf("%s %s", a->surname,a->name);
+}
+
+void print_b_node(book *b)
+{
+    printf("\n------------\n");
+    printf("%s\n", b->title);
+    printf("%d\n", b->release_date);
+    printf("%.2f\n", b->price);
+    printf("------------");
+}
+
 void print_b_list(const book_list *list)
 {
     book *cur;
@@ -238,7 +252,7 @@ book *search_book(book_list *b_list, char *title)
     book *cur = b_list->head;
     while (cur != NULL)
     {
-        if (cur->title == title)
+        if (strcasecmp(cur->title, title) == 0)
         {
             return cur;
         }
@@ -256,11 +270,7 @@ void search_writes_by_id(writes_list *w_list, book_list *b_list, int id)
         if (cur->writer_id == id)
         {
             book *found_book = search_book(b_list, cur->title);
-            printf("\n-----------------");
-            printf("\n%s", found_book->title);
-            printf("\n%d", found_book->release_date);
-            printf("\n%.2f", found_book->price);
-            printf("\n-----------------");
+            print_b_node(found_book);
             has_books = 1;
         }
         cur = cur->next;
@@ -303,3 +313,33 @@ void update_num_of_books(author_list *a_list, writes_list *w_list)
         }
     }
 }
+
+writes *search_writes_by_title(writes_list *w_list, char *title)
+{
+    writes *cur = w_list->head;
+    while (cur != NULL)
+    {
+        if (strcasecmp(cur->title, title) == 0)
+        {
+            return cur;
+        }
+        cur = cur->next;
+    }
+    return NULL;
+}
+
+author *search_author_id(author_list *a_list, int id)
+{
+    author *cur = a_list->head;
+    while (cur != NULL)
+    {
+        if (cur->writer_id == id)
+        {
+            return cur;
+        }
+        cur = cur->next;
+    }
+    return NULL;
+}
+
+
