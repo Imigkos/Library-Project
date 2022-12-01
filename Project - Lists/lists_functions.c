@@ -348,6 +348,7 @@ int delete_book(book_list *b_list, char *title)
     if (cur != NULL && strcasecmp(cur->title, title) == 0)
     {
         b_list->head = cur->next;
+        b_list->entries--;
         free(cur);
         return 1;
     }
@@ -374,7 +375,9 @@ void delete_writes_title(writes_list *w_list, char *title)
     if (cur != NULL && strcasecmp(cur->title, title) == 0)
     {
         w_list->head = cur->next;
+        w_list->entries--;
         free(cur);
+        return;
     }
 
     while (cur != NULL && strcasecmp(cur->title, title) != 0)
@@ -413,7 +416,9 @@ void delete_writes_id(writes_list *w_list, int id)
     if (cur != NULL && cur->writer_id == id)
     {
         w_list->head = cur->next;
+        w_list->entries--;
         free(cur);
+        return;
     }
 
     while (cur != NULL && cur->writer_id != id)
@@ -437,7 +442,9 @@ void delete_author(author_list *a_list, int id)
     if (cur != NULL && cur->writer_id == id)
     {
         a_list->head = cur->next;
+        a_list->entries--;
         free(cur);
+        return;
     }
 
     while (cur != NULL && cur->writer_id != id)

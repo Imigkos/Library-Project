@@ -1,47 +1,47 @@
 23
-5
-The Colour of Magic
-4
-The Horse and His Boy
-4
-The Voyage of the Dawn Treader
-4
-The Last Battle
-4
-Prince Caspian: The Return to Narnia
-4
-The Silver Chair
-4
-The Magician's Nephew
-4
-The Lion, the Witch and the Wardrobe
-3
-Lifeseeker
-3
-Deathseeker
-2
-A Storm of Swords
-2
-A Clash of Kings
-2
-Tuf Voyaging
-2
-A Dance with Dragons
-2
-A Feast for Crows
-2
-A Game of Thrones
 1
-The Last Wish
-1
-Season of Storms
-1
-Blood of Elves
-1
-The Lady of the Lake
-1
-Baptism of Fire
+The Tower of the Swallow!
 1
 Time of contempt
 1
-The Tower of the Swallow!
+Baptism of Fire
+1
+The Lady of the Lake
+1
+Blood of Elves
+1
+Season of Storms
+1
+The Last Wish
+2
+A Game of Thrones
+2
+A Feast for Crows
+2
+A Dance with Dragons
+2
+Tuf Voyaging
+2
+A Clash of Kings
+2
+A Storm of Swords
+3
+Deathseeker
+3
+Lifeseeker
+4
+The Lion, the Witch and the Wardrobe
+4
+The Magician's Nephew
+4
+The Silver Chair
+4
+Prince Caspian: The Return to Narnia
+4
+The Last Battle
+4
+The Voyage of the Dawn Treader
+4
+The Horse and His Boy
+5
+The Colour of Magic

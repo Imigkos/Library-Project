@@ -11,9 +11,6 @@ void main()
     writes_list *w_list;
     w_list = get_writes();
 
-    // print_a_list(a_list);
-    // sort_authors(a_list);
-    // print_a_list(a_list);
 
     int exit = 0;
     while (exit == 0)
