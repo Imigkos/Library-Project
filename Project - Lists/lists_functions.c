@@ -182,29 +182,42 @@ void insert_author(author_list *a_list)
 void insert_book(book_list *b_list)
 {
     book *new_book;
-    new_book = malloc(sizeof(book)); 
+    new_book = malloc(sizeof(book));
 
     char *buffer = malloc(512 * sizeof(char));
     printf("\nEnter the book's title: ");
     fgets(buffer, MAX, stdin);
     buffer[strcspn(buffer, "\n")] = 0;
-    new_book->title= malloc(strlen(buffer)* sizeof(char));
+    new_book->title = malloc(strlen(buffer) * sizeof(char));
     strcpy(new_book->title, buffer);
     free(buffer);
     buffer = NULL;
 
     printf("\nEnter the book's release date: ");
     scanf("%d", &new_book->release_date);
-    
+
     printf("\nEnter the book's price: ");
     scanf("%f", &new_book->price);
 
     b_list->entries++;
     new_book->next = b_list->head;
     b_list->head = new_book;
-    
 }
 
+void insert_writes(writes_list *w_list, int id, char *title)
+{
+    writes *new_writes;
+    new_writes = malloc(sizeof(writes));
+
+    new_writes->title = malloc(strlen(title) * sizeof(char));
+    strcpy(new_writes->title, title);
+
+    new_writes->writer_id = id;
+
+    w_list->entries++;
+    new_writes->next = w_list->head;
+    w_list->head = new_writes;
+}
 
 author *search_author(author_list *a_list, char *surname)
 {
@@ -258,3 +271,35 @@ void search_writes_by_id(writes_list *w_list, book_list *b_list, int id)
     }
 }
 
+void update_num_of_books(author_list *a_list, writes_list *w_list)
+{
+
+    author *a_cur;
+    writes *w_cur;
+    int books_written;
+
+    a_cur = a_list->head;
+
+    while (a_cur != NULL)
+    {
+        w_cur = w_list->head;
+        books_written = 0;
+        while (w_cur != NULL)
+        {
+            if (w_cur->writer_id == a_cur->writer_id)
+            {
+                books_written++;
+                w_cur = w_cur->next;
+            }
+            else
+            {
+                w_cur = w_cur->next;
+            }
+        }
+        a_cur->num_of_books = books_written;
+        if (a_cur != NULL)
+        {
+            a_cur = a_cur->next;
+        }
+    }
+}

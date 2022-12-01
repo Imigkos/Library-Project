@@ -27,13 +27,11 @@ void main()
         {
         case 1:
             insert_author(a_list);
-            print_a_list(a_list);
             break;
         case 2:
             puts("");
             char surname_target[MAX];
             insert_book(b_list);
-            print_b_list(b_list);
 
             printf("\nGive the surname of the book's author: ");
             scanf("%s",surname_target);
@@ -41,10 +39,13 @@ void main()
             if (target_author == NULL){
                 printf("\nAuthor was not found in the database");
                 insert_author(a_list);
+                insert_writes(w_list,a_list->head->writer_id,b_list->head->title);
             }
             else{
-                
+                insert_writes(w_list,target_author->writer_id,b_list->head->title);
             }
+            update_num_of_books(a_list,w_list);
+            
             break;
         case 3:
             printf("\nEnter the author's surname: ");
