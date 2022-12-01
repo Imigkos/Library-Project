@@ -12,7 +12,7 @@ void main()
     w_list = get_writes();
 
     // print_a_list(a_list);
-    sort_authors(a_list);
+    // sort_authors(a_list);
     // print_a_list(a_list);
     
     int exit = 0;
@@ -30,10 +30,23 @@ void main()
             print_a_list(a_list);
             break;
         case 2:
+            puts("");
             char surname_target[MAX];
+            insert_book(b_list);
+            print_b_list(b_list);
+
+            printf("\nGive the surname of the book's author: ");
+            scanf("%s",surname_target);
+            author *target_author = search_author(a_list,surname_target);
+            if (target_author == NULL){
+                printf("\nAuthor was not found in the database");
+                insert_author(a_list);
+            }
+            else{
+                
+            }
             break;
         case 3:
-            author *target_author;
             printf("\nEnter the author's surname: ");
             scanf("%s", surname_target);
             target_author = search_author(a_list,surname_target);
@@ -43,6 +56,7 @@ void main()
             else
             {
                 printf("\nThe author's full name is: %s %s", target_author->name,target_author->surname);
+                search_writes_by_id(w_list,b_list,target_author->writer_id);
             }
             break;
         case 4:

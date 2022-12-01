@@ -6,8 +6,6 @@ author_list *get_authors()
     author_list *a_list = malloc(sizeof(author_list));
     FILE *author_file;
 
-    int entries = 0;
-    int i = 0;
     char buffer[MAX];
 
     if ((author_file = fopen("authors.txt", "r")) == NULL)
@@ -47,8 +45,6 @@ book_list *get_books()
     book_list *b_list = malloc(sizeof(book_list));
     FILE *book_file;
 
-    int entries = 0;
-    int i = 0;
     char buffer[MAX];
 
     if ((book_file = fopen("book.txt", "r")) == NULL)
@@ -84,8 +80,6 @@ writes_list *get_writes()
     writes_list *w_list = malloc(sizeof(writes_list));
     FILE *writes_file;
 
-    int entries = 0;
-    int i = 0;
     char buffer[MAX];
 
     if ((writes_file = fopen("writes.txt", "r")) == NULL)
@@ -160,6 +154,7 @@ void print_w_list(const writes_list *list)
 void insert_author(author_list *a_list)
 {
     author *new_author;
+    new_author = malloc(sizeof(author));
 
     char *buffer = malloc(512 * sizeof(char));
     printf("\nEnter the author's name: ");
@@ -184,6 +179,33 @@ void insert_author(author_list *a_list)
     a_list->head = new_author;
 }
 
+void insert_book(book_list *b_list)
+{
+    book *new_book;
+    new_book = malloc(sizeof(book)); 
+
+    char *buffer = malloc(512 * sizeof(char));
+    printf("\nEnter the book's title: ");
+    fgets(buffer, MAX, stdin);
+    buffer[strcspn(buffer, "\n")] = 0;
+    new_book->title= malloc(strlen(buffer)* sizeof(char));
+    strcpy(new_book->title, buffer);
+    free(buffer);
+    buffer = NULL;
+
+    printf("\nEnter the book's release date: ");
+    scanf("%d", &new_book->release_date);
+    
+    printf("\nEnter the book's price: ");
+    scanf("%f", &new_book->price);
+
+    b_list->entries++;
+    new_book->next = b_list->head;
+    b_list->head = new_book;
+    
+}
+
+
 author *search_author(author_list *a_list, char *surname)
 {
     author *cur = a_list->head;
@@ -198,32 +220,41 @@ author *search_author(author_list *a_list, char *surname)
     return NULL;
 }
 
-author *swap(author *ptr1, author *ptr2)
+book *search_book(book_list *b_list, char *title)
 {
-    author *tmp = ptr2->next;
-    ptr2->next = ptr1;
-    ptr1->next = tmp;
-    return ptr2;
-}
-void sort_authors(author_list *head)
-{
-    author *i = a_list->head;
-    author *j = a_list->head;
-
-    while (i != NULL)
+    book *cur = b_list->head;
+    while (cur != NULL)
     {
-        while (j->next != NULL)
+        if (cur->title == title)
         {
-            if (j->writer_id > j->next->writer_id)
-            {
-                struct author *temp = j;
-                j = j->next;
-                j->next = temp;
-            }
-            j = j->next;
+            return cur;
         }
-        j = a_list->head;
-        i = i->next;
+        cur = cur->next;
     }
-    print_a_list(a_list);
+    return NULL;
 }
+
+void search_writes_by_id(writes_list *w_list, book_list *b_list, int id)
+{
+    int has_books = 0;
+    writes *cur = w_list->head;
+    while (cur != NULL)
+    {
+        if (cur->writer_id == id)
+        {
+            book *found_book = search_book(b_list, cur->title);
+            printf("\n-----------------");
+            printf("\n%s", found_book->title);
+            printf("\n%d", found_book->release_date);
+            printf("\n%.2f", found_book->price);
+            printf("\n-----------------");
+            has_books = 1;
+        }
+        cur = cur->next;
+    }
+    if (has_books == 0)
+    {
+        printf("\nThere are no book entries regarding this author\n ");
+    }
+}
+
