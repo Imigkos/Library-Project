@@ -80,8 +80,8 @@ void main()
             }
             else
             {
-                target_writes = search_writes_by_title(w_list,target_book->title);
-                target_author = search_author_id(a_list,target_writes->writer_id);
+                target_writes = search_writes_by_title(w_list, target_book->title);
+                target_author = search_author_id(a_list, target_writes->writer_id);
                 print_b_node(target_book);
                 printf("\nWritten By: ");
                 print_a_node(target_author);
@@ -90,8 +90,54 @@ void main()
 
             break;
         case 5:
+            puts("");
+
+            int i;
+            int id_delete = -1;
+            print_a_list(a_list);
+            printf("Enter the id of the author you want to delete: ");
+            scanf("%d", &id_delete);
+            if (search_author_id(a_list, id_delete) != NULL)
+            {
+                target_author = search_author_id(a_list,id_delete);
+                mass_book_delete(w_list,b_list,id_delete);
+                print_b_list(b_list);
+                for ( i = 0; i <= target_author->num_of_books; i++)
+                {
+                    
+                    delete_writes_id(w_list,id_delete);
+
+                }
+                print_w_list(w_list);
+                delete_author(a_list,id_delete);
+                print_a_list(a_list);
+
+            }
+            else
+            {
+                printf("\nThere is no author with that id\n");
+            }
             break;
         case 6:
+            puts("");
+            char *book_title = malloc(512 * sizeof(char));
+            printf("\nEnter the title of the book you want to delete: ");
+            fgets(book_title, MAX, stdin);
+            book_title[strcspn(book_title, "\n")] = 0;
+            int book_exists = delete_book(b_list, book_title);
+
+            if (book_exists == 1)
+            {
+                print_b_list(b_list);
+                delete_writes_title(w_list,book_title);
+                update_num_of_books(a_list, w_list);
+                print_w_list(w_list);
+            }
+            else
+            {
+                printf("\nBook was not found ");
+            }
+
             break;
         case 7:
             break;

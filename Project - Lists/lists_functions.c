@@ -115,8 +115,8 @@ void print_a_list(const author_list *list)
         printf("------------\n");
         printf("%s\n", cur->surname);
         printf("%s\n", cur->name);
-        printf("%d\n", cur->writer_id);
-        printf("%d\n", cur->num_of_books);
+        printf("ID:%d\n", cur->writer_id);
+        printf("Books:%d\n", cur->num_of_books);
         printf("------------\n");
         cur = cur->next;
     }
@@ -342,4 +342,106 @@ author *search_author_id(author_list *a_list, int id)
     return NULL;
 }
 
+int delete_book(book_list *b_list,char *title){
+    book *cur = b_list->head,*prev;
+    if (cur!=NULL && strcasecmp(cur->title,title)==0){
+        b_list->head = cur->next;
+        free(cur);
+        return 1;
+    }
+    
+    while (cur!= NULL && strcasecmp(cur->title,title)!=0)
+    {
+        prev = cur;
+        cur = cur->next;
+    }
 
+    if(cur == NULL){
+        return 0;
+    }
+    prev->next = cur->next;
+    b_list->entries--;
+    free(cur);
+    return 1;
+}
+
+void delete_writes_title(writes_list *w_list,char *title){
+     writes *cur = w_list->head,*prev;
+    if (cur!=NULL && strcasecmp(cur->title,title)==0){
+        w_list->head = cur->next;
+        free(cur);
+    }
+    
+    while (cur!= NULL && strcasecmp(cur->title,title)!=0)
+    {
+        prev = cur;
+        cur = cur->next;
+    }
+
+    if(cur == NULL){
+        return ;
+    }
+    prev->next = cur->next;
+    w_list->entries--;
+    free(cur);
+
+}
+
+void *mass_book_delete(writes_list *w_list,book_list *b_list,int id){
+
+    writes *cur = w_list->head;
+
+    while (cur != NULL)
+    {
+        if (cur->writer_id == id)
+        {
+            delete_book(b_list,cur->title);
+        }
+        cur = cur->next;
+    }
+    
+}
+
+void delete_writes_id(writes_list *w_list,int id){
+    writes *cur = w_list->head,*prev;
+    if (cur!=NULL && cur->writer_id == id){
+        w_list->head = cur->next;
+        free(cur);
+    }
+    
+    while (cur!= NULL && cur->writer_id != id)
+    {
+        prev = cur;
+        cur = cur->next;
+    }
+
+    if(cur == NULL){
+        return ;
+    }
+    prev->next = cur->next;
+    w_list->entries--;
+    free(cur);
+
+}
+
+void delete_author(author_list *a_list,int id){
+    author *cur = a_list->head,*prev;
+    if (cur!=NULL && cur->writer_id == id){
+        a_list->head = cur->next;
+        free(cur);
+    }
+    
+    while (cur!= NULL && cur->writer_id != id)
+    {
+        prev = cur;
+        cur = cur->next;
+    }
+
+    if(cur == NULL){
+        return ;
+    }
+    prev->next = cur->next;
+    a_list->entries--;
+    free(cur);
+
+}
