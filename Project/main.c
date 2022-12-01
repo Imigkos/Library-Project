@@ -93,7 +93,7 @@ void main()
                 printf("\n-----------------");
                 printf("\n%s", book_arr[target_book].title);
                 printf("\n%d", book_arr[target_book].release_date);
-                printf("\n%.2f€", book_arr[target_book].price);
+                printf("\n%.2f", book_arr[target_book].price);
                 printf("\n-----------------");
                 printf("\nWritten By: ");
                 printf("\n-----------------");
