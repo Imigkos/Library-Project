@@ -476,6 +476,7 @@ void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)
         fprintf(author_file, "%s\n", a_cur->surname);
         fprintf(author_file, "%s\n", a_cur->name);
         fprintf(author_file, "%d\n", a_cur->num_of_books);
+        a_cur = a_cur->next;
     }
 
     if ((book_file = fopen("book.txt", "w")) == NULL)
@@ -484,12 +485,13 @@ void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)
         exit(1);
     }
 
-    fprintf(book_file, "%d\n", a_list->entries);
-    while (a_cur != NULL)
+    fprintf(book_file, "%d\n", b_list->entries);
+    while (b_cur != NULL)
     {
         fprintf(book_file, "%d\n", b_cur->release_date);
         fprintf(book_file, "%s\n", b_cur->title);
         fprintf(book_file, "%.2f\n", b_cur->price);
+        b_cur = b_cur->next;
     }
 
     if ((writes_file = fopen("writes.txt", "w")) == NULL)
@@ -497,11 +499,13 @@ void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)
         fprintf(stderr, "Error in writes.txt");
         exit(1);
     }
+    fprintf(writes_file, "%d\n", w_list->entries);
 
     while (w_cur != NULL)
     {
         fprintf(writes_file, "%d\n", w_cur->writer_id);
         fprintf(writes_file, "%s\n", w_cur->title);
+        w_cur =w_cur->next;
     }
 
     fflush(author_file);
