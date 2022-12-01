@@ -140,6 +140,8 @@ void main()
 
             break;
         case 7:
+            exit = 1;
+            exit_library(a_list,b_list,w_list);
             break;
         default:
         }

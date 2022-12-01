@@ -124,7 +124,7 @@ void print_a_list(const author_list *list)
 
 void print_a_node(author *a)
 {
-    printf("%s %s", a->surname,a->name);
+    printf("%s %s", a->surname, a->name);
 }
 
 void print_b_node(book *b)
@@ -342,21 +342,24 @@ author *search_author_id(author_list *a_list, int id)
     return NULL;
 }
 
-int delete_book(book_list *b_list,char *title){
-    book *cur = b_list->head,*prev;
-    if (cur!=NULL && strcasecmp(cur->title,title)==0){
+int delete_book(book_list *b_list, char *title)
+{
+    book *cur = b_list->head, *prev;
+    if (cur != NULL && strcasecmp(cur->title, title) == 0)
+    {
         b_list->head = cur->next;
         free(cur);
         return 1;
     }
-    
-    while (cur!= NULL && strcasecmp(cur->title,title)!=0)
+
+    while (cur != NULL && strcasecmp(cur->title, title) != 0)
     {
         prev = cur;
         cur = cur->next;
     }
 
-    if(cur == NULL){
+    if (cur == NULL)
+    {
         return 0;
     }
     prev->next = cur->next;
@@ -365,29 +368,32 @@ int delete_book(book_list *b_list,char *title){
     return 1;
 }
 
-void delete_writes_title(writes_list *w_list,char *title){
-     writes *cur = w_list->head,*prev;
-    if (cur!=NULL && strcasecmp(cur->title,title)==0){
+void delete_writes_title(writes_list *w_list, char *title)
+{
+    writes *cur = w_list->head, *prev;
+    if (cur != NULL && strcasecmp(cur->title, title) == 0)
+    {
         w_list->head = cur->next;
         free(cur);
     }
-    
-    while (cur!= NULL && strcasecmp(cur->title,title)!=0)
+
+    while (cur != NULL && strcasecmp(cur->title, title) != 0)
     {
         prev = cur;
         cur = cur->next;
     }
 
-    if(cur == NULL){
-        return ;
+    if (cur == NULL)
+    {
+        return;
     }
     prev->next = cur->next;
     w_list->entries--;
     free(cur);
-
 }
 
-void *mass_book_delete(writes_list *w_list,book_list *b_list,int id){
+void *mass_book_delete(writes_list *w_list, book_list *b_list, int id)
+{
 
     writes *cur = w_list->head;
 
@@ -395,53 +401,115 @@ void *mass_book_delete(writes_list *w_list,book_list *b_list,int id){
     {
         if (cur->writer_id == id)
         {
-            delete_book(b_list,cur->title);
+            delete_book(b_list, cur->title);
         }
         cur = cur->next;
     }
-    
 }
 
-void delete_writes_id(writes_list *w_list,int id){
-    writes *cur = w_list->head,*prev;
-    if (cur!=NULL && cur->writer_id == id){
+void delete_writes_id(writes_list *w_list, int id)
+{
+    writes *cur = w_list->head, *prev;
+    if (cur != NULL && cur->writer_id == id)
+    {
         w_list->head = cur->next;
         free(cur);
     }
-    
-    while (cur!= NULL && cur->writer_id != id)
+
+    while (cur != NULL && cur->writer_id != id)
     {
         prev = cur;
         cur = cur->next;
     }
 
-    if(cur == NULL){
-        return ;
+    if (cur == NULL)
+    {
+        return;
     }
     prev->next = cur->next;
     w_list->entries--;
     free(cur);
-
 }
 
-void delete_author(author_list *a_list,int id){
-    author *cur = a_list->head,*prev;
-    if (cur!=NULL && cur->writer_id == id){
+void delete_author(author_list *a_list, int id)
+{
+    author *cur = a_list->head, *prev;
+    if (cur != NULL && cur->writer_id == id)
+    {
         a_list->head = cur->next;
         free(cur);
     }
-    
-    while (cur!= NULL && cur->writer_id != id)
+
+    while (cur != NULL && cur->writer_id != id)
     {
         prev = cur;
         cur = cur->next;
     }
 
-    if(cur == NULL){
-        return ;
+    if (cur == NULL)
+    {
+        return;
     }
     prev->next = cur->next;
     a_list->entries--;
     free(cur);
+}
 
+void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)
+{
+    FILE *author_file, *writes_file, *book_file;
+    int i;
+    author *a_cur = a_list->head;
+    book *b_cur = b_list->head;
+    writes *w_cur = w_list->head;
+
+    if ((author_file = fopen("authors.txt", "w")) == NULL)
+    {
+        fprintf(stderr, "Error in authors.txt");
+        exit(1);
+    }
+
+    fprintf(author_file, "%d\n", a_list->entries);
+    while (a_cur != NULL)
+    {
+        fprintf(author_file, "%d\n", a_cur->writer_id);
+        fprintf(author_file, "%s\n", a_cur->surname);
+        fprintf(author_file, "%s\n", a_cur->name);
+        fprintf(author_file, "%d\n", a_cur->num_of_books);
+    }
+
+    if ((book_file = fopen("book.txt", "w")) == NULL)
+    {
+        fprintf(stderr, "Error in book.txt");
+        exit(1);
+    }
+
+    fprintf(book_file, "%d\n", a_list->entries);
+    while (a_cur != NULL)
+    {
+        fprintf(book_file, "%d\n", b_cur->release_date);
+        fprintf(book_file, "%s\n", b_cur->title);
+        fprintf(book_file, "%.2f\n", b_cur->price);
+    }
+
+    if ((writes_file = fopen("writes.txt", "w")) == NULL)
+    {
+        fprintf(stderr, "Error in writes.txt");
+        exit(1);
+    }
+
+    while (w_cur != NULL)
+    {
+        fprintf(writes_file, "%d\n", w_cur->writer_id);
+        fprintf(writes_file, "%s\n", w_cur->title);
+    }
+
+    fflush(author_file);
+    fclose(author_file);
+
+    fflush(book_file);
+    fclose(book_file);
+
+    fflush(writes_file);
+    fclose(writes_file);
 }
