@@ -1,8 +1,8 @@
 
 #include "main_functions.c"
-int main()
+void main()
 {
-
+	printf("\nIteration using dynamic arrays");
     int author_arr_size = get_arr_size("authors.txt");
     author *author_arr = malloc(sizeof(author) * author_arr_size);
     author_arr = get_authors();
@@ -21,7 +21,6 @@ int main()
     {
         int menu_choice;
         printf("\n1)Insert new writer record\n2)Insert new book record\n3)Search a writer record\n4)Search a book record\n5)Delete a writer record\n6)Delete a book record\n7)Exit\n");
-        printf("\nEnter your choice: ");
         scanf("%d", &menu_choice);
         getchar();
 
@@ -39,11 +38,11 @@ int main()
 
             book_arr = insert_book(book_arr_size, book_arr);
             book_arr_size++;
-            
+
             printf("\nGive the surname of the book's author: ");
             scanf("%s", surname_target);
-            int target_author = search_author(author_arr, author_arr_size, surname_target);//check if author exists return -1 if he doesnt
-            if (target_author == -1)//create new entry for nonexistent author
+            int target_author = search_author(author_arr, author_arr_size, surname_target);
+            if (target_author == -1)
             {
                 printf("\nAuthor was not found in the database\n");
                 author_arr = insert_author(author_arr_size, author_arr);
@@ -51,9 +50,9 @@ int main()
                 writes_arr = insert_writes(writes_arr_size, book_arr_size, author_arr_size, surname_target, writes_arr, book_arr, author_arr);
                 writes_arr_size++;
             }
-            else//add entry in the writes array for new book
+            else
             {
-                
+
                 writes_arr = insert_writes(writes_arr_size, book_arr_size, author_arr_size, surname_target, writes_arr, book_arr, author_arr);
                 writes_arr_size++;
             }
@@ -82,14 +81,13 @@ int main()
             printf("Enter the book's title: ");
             fgets(title_target, MAX, stdin);
             title_target[strcspn(title_target, "\n")] = 0;
-            target_book = search_book(book_arr, book_arr_size, title_target);//search books if it doesnt exist return -1
+            target_book = search_book(book_arr, book_arr_size, title_target);
             if (target_book == -1)
             {
                 printf("\nBook was not found in the database ");
             }
             else
             {
-                //find author id from writes_arr and then author data from author_arr then print it
                 int target_writes = search_writes_by_title(writes_arr, writes_arr_size, title_target, 0);
                 int current_book_author = search_author_id(author_arr, author_arr_size, target_writes);
                 printf("\n-----------------");
@@ -107,7 +105,7 @@ int main()
         case 5:
         	puts("");
             int id_delete = -1;
-            print_arr(author_arr,author_arr_size);//print array with ids
+            print_arr(author_arr,author_arr_size);
             printf("\nEnter the id of the author you want to delete: ");
             scanf("%d", &id_delete);
             if (search_author_id(author_arr,author_arr_size,id_delete) != -1){
@@ -145,12 +143,12 @@ int main()
                 printf("\nBook was not found ");
             }
             author_arr = update_num_of_books(author_arr_size, writes_arr_size, author_arr, writes_arr);
-            //update num of books after book has been deleted
+
             break;
 
         case 7:
             exit = 1;
-            qsort(author_arr, author_arr_size, sizeof(author), author_id_compare);//sort array by id 
+            qsort(author_arr, author_arr_size, sizeof(author), author_id_compare);
             exit_library(author_arr, book_arr, writes_arr, author_arr_size, book_arr_size, writes_arr_size);
             free(author_arr);
             free(book_arr);
@@ -160,5 +158,4 @@ int main()
             printf("\nEnter a valid choice!! ");
         }
     }
-    return 1;
 }

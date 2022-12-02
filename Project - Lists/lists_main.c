@@ -1,7 +1,8 @@
 #include "lists_functions.c"
 
-int main()
+void main()
 {
+	printf("\nIteration using Lists");
     author_list *a_list;
     a_list = get_authors();
 
@@ -98,13 +99,16 @@ int main()
             {
                 target_author = search_author_id(a_list,id_delete);
                 mass_book_delete(w_list,b_list,id_delete);
+                
                 for ( i = 0; i <= target_author->num_of_books; i++)
                 {
                     
                     delete_writes_id(w_list,id_delete);
 
                 }
+    
                 delete_author(a_list,id_delete);
+                printf("\nAuthor and his entries have been deleted successfully");
 
             }
             else
@@ -122,8 +126,10 @@ int main()
 
             if (book_exists == 1)
             {
+                print_b_list(b_list);
                 delete_writes_title(w_list,book_title);
                 update_num_of_books(a_list, w_list);
+                print_w_list(w_list);
             }
             else
             {
@@ -139,5 +145,4 @@ int main()
         	printf("\nEnter a valid choice!!");
         }
     }
-    return 1;
 }

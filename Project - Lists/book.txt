@@ -1,70 +1,10 @@
-23
-1999
-A Clash of Kings
-9.99
-2011
-A Dance with Dragons
-9.99
-2005
-A Feast for Crows
-8.99
-1996
-A Game of Thrones
-9.99
-2000
-A Storm of Swords
-8.99
-2014
-Baptism of Fire
-12.99
-2008
-Blood of Elves
-9.99
-2023
-Deathseeker
-7.99
-2021
-Lifeseeker
-4.24
-1951
-Prince Caspian: The Return to Narnia
-8.99
-2018
-Season of Storms
-11.33
+3
 1983
 The Colour of Magic
 6.65
-1954
-The Horse and His Boy
-6.99
-2017
-The Lady of the Lake
-9.99
-1956
-The Last Battle
-8.99
-2007
-The Last Wish
-13.99
-1950
-The Lion, the Witch and the Wardrobe
-9.99
-1955
-The Magician's Nephew
-8.65
-1953
-The Silver Chair
+2021
+Lifeseeker
+4.24
+2023
+Deathseeker
 7.99
-2016
-The Tower of the Swallow!
-15.99
-1952
-The Voyage of the Dawn Treader
-10.99
-2013
-Time of contempt
-11.12
-1986
-Tuf Voyaging
-11.99

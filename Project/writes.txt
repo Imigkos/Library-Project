@@ -1,7 +1,5 @@
 23
 1
-The Tower of the Swallow!
-1
 Time of contempt
 1
 Baptism of Fire
@@ -13,6 +11,8 @@ Blood of Elves
 Season of Storms
 1
 The Last Wish
+1
+The Tower of the Swallow!
 2
 A Game of Thrones
 2
@@ -26,9 +26,9 @@ A Clash of Kings
 2
 A Storm of Swords
 3
-Deathseeker
-3
 Lifeseeker
+3
+Deathseeker
 4
 The Lion, the Witch and the Wardrobe
 4

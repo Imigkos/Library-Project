@@ -1,6 +1,6 @@
 #include "init.h"
 
-author_list *get_authors() 
+author_list *get_authors()
 {
 
     author_list *a_list = malloc(sizeof(author_list));
@@ -15,7 +15,7 @@ author_list *get_authors()
     }
     fgets(buffer, MAX, author_file);
     a_list->entries = atoi(buffer);
-    while (fgets(buffer, MAX, author_file)) 
+    while (fgets(buffer, MAX, author_file))
     {
         author *new_author;
         new_author = malloc(sizeof(author));
@@ -24,16 +24,18 @@ author_list *get_authors()
         new_author->surname = malloc(sizeof(char) * MAX);
         fgets(new_author->surname, MAX, author_file);
         new_author->surname[strcspn(new_author->surname, "\n")] = 0;
+        new_author->surname[strcspn(new_author->surname, "\r")] = 0;
 
         new_author->name = malloc(sizeof(char) * MAX);
         fgets(new_author->name, MAX, author_file);
         new_author->name[strcspn(new_author->name, "\n")] = 0;
+        new_author->surname[strcspn(new_author->surname, "\r")] = 0;
 
         fgets(buffer, MAX, author_file);
         new_author->num_of_books = atoi(buffer);
 
-        new_author->next = a_list->head; //next becomes head
-        a_list->head = new_author; //insert at head
+        new_author->next = a_list->head;
+        a_list->head = new_author;
     }
 
     return (a_list);
@@ -63,6 +65,8 @@ book_list *get_books()
         new_book->title = malloc(sizeof(char) * MAX);
         fgets(new_book->title, MAX, book_file);
         new_book->title[strcspn(new_book->title, "\n")] = 0;
+        new_book->title[strcspn(new_book->title, "\r")] = 0;
+        
 
         fgets(buffer, MAX, book_file);
         new_book->price = atof(buffer);
@@ -98,6 +102,7 @@ writes_list *get_writes()
         new_writes->title = malloc(sizeof(char) * MAX);
         fgets(new_writes->title, MAX, writes_file);
         new_writes->title[strcspn(new_writes->title, "\n")] = 0;
+        new_writes->title[strcspn(new_writes->title, "\r")] = 0;
 
         new_writes->next = w_list->head;
         w_list->head = new_writes;
@@ -111,20 +116,20 @@ void print_a_list(author_list *list)
 	int i;
     author *cur;
     cur = list->head;
-    for(i=0;i<list->entries;i++) //print until end of list
+    printf("---------------\n");
+    for(i=0;i<list->entries;i++)
     {
-        printf("------------\n");
-        printf("%s\n", cur->surname);
-        printf("%s\n", cur->name);
-        printf("ID:%d\n", cur->writer_id);
-        printf("Books:%d\n", cur->num_of_books);
-        printf("------------\n");
+        printf("%s", cur->surname);
+        printf(" %s", cur->name);
+        printf("\nID: %d\n", cur->writer_id);
+        printf("Books: %d", cur->num_of_books);
+        printf("\n---------------\n");
         cur = cur->next;
     }
    
 }
 
-void print_a_node(author *a) //print singular node
+void print_a_node(author *a)
 {
     printf("%s %s", a->surname, a->name);
 }
@@ -170,7 +175,7 @@ void print_w_list(const writes_list *list)
     }
 }
 
-void insert_author(author_list *a_list) //insert new author entry at head
+void insert_author(author_list *a_list)
 {
     author *new_author;
     new_author = malloc(sizeof(author));
@@ -240,9 +245,9 @@ void insert_writes(writes_list *w_list, int id, char *title)
 
 author *search_author(author_list *a_list, char *surname)
 {
+    int i;
     author *cur = a_list->head;
-    while (cur != NULL)
-    {
+    for(i = 0;i<a_list->entries;i++){
         if (strcasecmp(cur->surname, surname) == 0)
         {
             return cur;
@@ -254,9 +259,9 @@ author *search_author(author_list *a_list, char *surname)
 
 book *search_book(book_list *b_list, char *title)
 {
+    int i;
     book *cur = b_list->head;
-    while (cur != NULL)
-    {
+    for(i = 0;i<b_list->entries;i++){
         if (strcasecmp(cur->title, title) == 0)
         {
             return cur;
@@ -295,24 +300,24 @@ void update_num_of_books(author_list *a_list, writes_list *w_list)
 
     a_cur = a_list->head;
 
-    while (a_cur != NULL) //until end of author list
+    while (a_cur != NULL)
     {
         w_cur = w_list->head;
         books_written = 0;
-        while (w_cur != NULL)//until end of writer list
+        while (w_cur != NULL)
         {
-            if (w_cur->writer_id == a_cur->writer_id) //if writer id matches author id increase books written
+            if (w_cur->writer_id == a_cur->writer_id)
             {
                 books_written++;
                 w_cur = w_cur->next;
             }
-            else//else just pass to next node
+            else
             {
                 w_cur = w_cur->next;
             }
         }
-        a_cur->num_of_books = books_written; //assign to num of books
-        if (a_cur != NULL) 
+        a_cur->num_of_books = books_written;
+        if (a_cur != NULL)
         {
             a_cur = a_cur->next;
         }
@@ -335,9 +340,9 @@ writes *search_writes_by_title(writes_list *w_list, char *title)
 
 author *search_author_id(author_list *a_list, int id)
 {
+    int i;
     author *cur = a_list->head;
-    while (cur != NULL)
-    {
+    for(i = 0;i<a_list->entries;i++){
         if (cur->writer_id == id)
         {
             return cur;
@@ -350,25 +355,25 @@ author *search_author_id(author_list *a_list, int id)
 int delete_book(book_list *b_list, char *title)
 {
     book *cur = b_list->head, *prev;
-    if (cur != NULL && strcasecmp(cur->title, title) == 0)//check if key data matches head data 
+    if (cur != NULL && strcasecmp(cur->title, title) == 0)
     {
-        b_list->head = cur->next; //change head to next node
+        b_list->head = cur->next;
         b_list->entries--;
-        free(cur); //free head node
+        free(cur);
         return 1;
     }
 
-    while (cur != NULL && strcasecmp(cur->title, title) != 0) //search list for node with key data
+    while (cur != NULL && strcasecmp(cur->title, title) != 0)
     {
         prev = cur;
         cur = cur->next;
     }
 
-    if (cur == NULL) //if it doesnt find anything return 
+    if (cur == NULL)
     {
         return 0;
     }
-    prev->next = cur->next; //unlink node
+    prev->next = cur->next;
     b_list->entries--;
     free(cur);
     return 1;
@@ -400,7 +405,7 @@ void delete_writes_title(writes_list *w_list, char *title)
     free(cur);
 }
 
-void mass_book_delete(writes_list *w_list, book_list *b_list, int id)
+void *mass_book_delete(writes_list *w_list, book_list *b_list, int id)
 {
 
     writes *cur = w_list->head;
@@ -467,9 +472,10 @@ void delete_author(author_list *a_list, int id)
     free(cur);
 }
 
-void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)//write to file
+void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)
 {
     FILE *author_file, *writes_file, *book_file;
+    int i;
     author *a_cur = a_list->head;
     book *b_cur = b_list->head;
     writes *w_cur = w_list->head;
@@ -481,8 +487,8 @@ void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)//
     }
 
     fprintf(author_file, "%d\n", a_list->entries);
-    while (a_cur != NULL)
-    {
+     for(i=0;i<a_list->entries;i++)
+    { 
         fprintf(author_file, "%d\n", a_cur->writer_id);
         fprintf(author_file, "%s\n", a_cur->surname);
         fprintf(author_file, "%s\n", a_cur->name);
@@ -497,7 +503,7 @@ void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)//
     }
 
     fprintf(book_file, "%d\n", b_list->entries);
-    while (b_cur != NULL)
+     for(i=0;i<b_list->entries;i++)
     {
         fprintf(book_file, "%d\n", b_cur->release_date);
         fprintf(book_file, "%s\n", b_cur->title);
@@ -512,7 +518,7 @@ void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)//
     }
     fprintf(writes_file, "%d\n", w_list->entries);
 
-    while (w_cur != NULL)
+     for(i=0;i<w_list->entries;i++)
     {
         fprintf(writes_file, "%d\n", w_cur->writer_id);
         fprintf(writes_file, "%s\n", w_cur->title);
