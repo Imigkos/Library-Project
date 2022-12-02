@@ -273,10 +273,10 @@ book *search_book(book_list *b_list, char *title)
 
 void search_writes_by_id(writes_list *w_list, book_list *b_list, int id)
 {
+	int i;
     int has_books = 0;
     writes *cur = w_list->head;
-    while (cur != NULL)
-    {
+    for (i = 0;i<w_list->entries;i++){
         if (cur->writer_id == id)
         {
             book *found_book = search_book(b_list, cur->title);
@@ -297,15 +297,15 @@ void update_num_of_books(author_list *a_list, writes_list *w_list)
     author *a_cur;
     writes *w_cur;
     int books_written;
+    int i;
+    int j;
 
     a_cur = a_list->head;
 
-    while (a_cur != NULL)
-    {
+    for(i = 0;i<a_list->entries;i++){
         w_cur = w_list->head;
         books_written = 0;
-        while (w_cur != NULL)
-        {
+        for(j = 0;j<w_list->entries;j++){
             if (w_cur->writer_id == a_cur->writer_id)
             {
                 books_written++;
