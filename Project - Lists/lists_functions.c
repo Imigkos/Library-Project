@@ -1,6 +1,6 @@
 #include "init.h"
 
-author_list *get_authors()
+author_list *get_authors() 
 {
 
     author_list *a_list = malloc(sizeof(author_list));
@@ -15,7 +15,7 @@ author_list *get_authors()
     }
     fgets(buffer, MAX, author_file);
     a_list->entries = atoi(buffer);
-    while (fgets(buffer, MAX, author_file))
+    while (fgets(buffer, MAX, author_file)) 
     {
         author *new_author;
         new_author = malloc(sizeof(author));
@@ -32,8 +32,8 @@ author_list *get_authors()
         fgets(buffer, MAX, author_file);
         new_author->num_of_books = atoi(buffer);
 
-        new_author->next = a_list->head;
-        a_list->head = new_author;
+        new_author->next = a_list->head; //next becomes head
+        a_list->head = new_author; //insert at head
     }
 
     return (a_list);
@@ -111,7 +111,7 @@ void print_a_list(author_list *list)
 	int i;
     author *cur;
     cur = list->head;
-    for(i=0;i<list->entries;i++)
+    for(i=0;i<list->entries;i++) //print until end of list
     {
         printf("------------\n");
         printf("%s\n", cur->surname);
@@ -124,7 +124,7 @@ void print_a_list(author_list *list)
    
 }
 
-void print_a_node(author *a)
+void print_a_node(author *a) //print singular node
 {
     printf("%s %s", a->surname, a->name);
 }
@@ -170,7 +170,7 @@ void print_w_list(const writes_list *list)
     }
 }
 
-void insert_author(author_list *a_list)
+void insert_author(author_list *a_list) //insert new author entry at head
 {
     author *new_author;
     new_author = malloc(sizeof(author));
@@ -295,24 +295,24 @@ void update_num_of_books(author_list *a_list, writes_list *w_list)
 
     a_cur = a_list->head;
 
-    while (a_cur != NULL)
+    while (a_cur != NULL) //until end of author list
     {
         w_cur = w_list->head;
         books_written = 0;
-        while (w_cur != NULL)
+        while (w_cur != NULL)//until end of writer list
         {
-            if (w_cur->writer_id == a_cur->writer_id)
+            if (w_cur->writer_id == a_cur->writer_id) //if writer id matches author id increase books written
             {
                 books_written++;
                 w_cur = w_cur->next;
             }
-            else
+            else//else just pass to next node
             {
                 w_cur = w_cur->next;
             }
         }
-        a_cur->num_of_books = books_written;
-        if (a_cur != NULL)
+        a_cur->num_of_books = books_written; //assign to num of books
+        if (a_cur != NULL) 
         {
             a_cur = a_cur->next;
         }
@@ -350,25 +350,25 @@ author *search_author_id(author_list *a_list, int id)
 int delete_book(book_list *b_list, char *title)
 {
     book *cur = b_list->head, *prev;
-    if (cur != NULL && strcasecmp(cur->title, title) == 0)
+    if (cur != NULL && strcasecmp(cur->title, title) == 0)//check if key data matches head data 
     {
-        b_list->head = cur->next;
+        b_list->head = cur->next; //change head to next node
         b_list->entries--;
-        free(cur);
+        free(cur); //free head node
         return 1;
     }
 
-    while (cur != NULL && strcasecmp(cur->title, title) != 0)
+    while (cur != NULL && strcasecmp(cur->title, title) != 0) //search list for node with key data
     {
         prev = cur;
         cur = cur->next;
     }
 
-    if (cur == NULL)
+    if (cur == NULL) //if it doesnt find anything return 
     {
         return 0;
     }
-    prev->next = cur->next;
+    prev->next = cur->next; //unlink node
     b_list->entries--;
     free(cur);
     return 1;
@@ -400,7 +400,7 @@ void delete_writes_title(writes_list *w_list, char *title)
     free(cur);
 }
 
-void *mass_book_delete(writes_list *w_list, book_list *b_list, int id)
+void mass_book_delete(writes_list *w_list, book_list *b_list, int id)
 {
 
     writes *cur = w_list->head;
@@ -467,10 +467,9 @@ void delete_author(author_list *a_list, int id)
     free(cur);
 }
 
-void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)
+void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)//write to file
 {
     FILE *author_file, *writes_file, *book_file;
-    int i;
     author *a_cur = a_list->head;
     book *b_cur = b_list->head;
     writes *w_cur = w_list->head;
