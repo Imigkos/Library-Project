@@ -1,12 +1,12 @@
 #include "init.h"
 #define MAX 100
 
-author *get_authors()
+author *get_authors()//insert author entries from file to array 
 {
 
     FILE *author_file;
 
-    if ((author_file = fopen("authors.txt", "r")) == NULL)
+    if ((author_file = fopen("authors.txt", "r")) == NULL)//check if file exists
     {
         printf("File does not exist or cannot be opened.\n");
         exit(1);
@@ -15,14 +15,13 @@ author *get_authors()
     int i = 0;
     char buffer[MAX];
 
-    fgets(buffer, MAX, author_file);
+    fgets(buffer, MAX, author_file); //get first line which contains entries
     entries = atoi(buffer);
     author *author_arr = malloc(sizeof(author) * entries);
     while (fgets(buffer, MAX, author_file))
     {
         author writer;
         writer.writer_id = atoi(buffer);
-        // char* buffer = malloc(100*sizeof(char));
 
         writer.surname = malloc(sizeof(char) * MAX);
         fgets(writer.surname, MAX, author_file);
@@ -41,7 +40,7 @@ author *get_authors()
     return author_arr;
 }
 
-book *get_books()
+book *get_books() 
 {
 
     FILE *book_file;
@@ -110,7 +109,7 @@ writes *get_writes()
     return writes_arr;
 }
 
-int get_arr_size(char *filename)
+int get_arr_size(char *filename)//get arr size from file
 {
     FILE *file;
     if ((file = fopen(filename, "r")) == NULL)
@@ -126,7 +125,7 @@ int get_arr_size(char *filename)
     return (array_size);
 }
 
-author *insert_author(int arr_size, author *author_arr)
+author *insert_author(int arr_size, author *author_arr) //insert author into array
 {
     author new_writer;
 
@@ -153,7 +152,7 @@ author *insert_author(int arr_size, author *author_arr)
     return (author_arr);
 }
 
-void exit_library(author *author_arr, book *book_arr, writes *writes_arr, int author_arr_size, int book_arr_size, int writes_arr_size)
+void exit_library(author *author_arr, book *book_arr, writes *writes_arr, int author_arr_size, int book_arr_size, int writes_arr_size)//print entries into files 
 {
 
     FILE *author_file, *writes_file, *book_file;
@@ -223,7 +222,7 @@ void exit_library(author *author_arr, book *book_arr, writes *writes_arr, int au
     fclose(writes_file);
 }
 
-int author_surname_compare(const void* writer1,const void* writer2)
+int author_surname_compare(const void* writer1,const void* writer2) //compares two strings from two different structs (like strcmp)not case sensitive
 {
     author* writer1_t =(author*)writer1;
     author* writer2_t =(author*)writer2;
@@ -231,7 +230,7 @@ int author_surname_compare(const void* writer1,const void* writer2)
     return surname_compare;
 }
 
-int author_id_compare(const void* writer1,const void* writer2)
+int author_id_compare(const void* writer1,const void* writer2)// compares two ids
 {
     author* writer1_t =(author*)writer1;
     author* writer2_t =(author*)writer2;
@@ -282,7 +281,7 @@ int writes_id_compare(const void* writes1,const void* writes2)
     }
 }
 
-int search_author(author *author_arr, int array_size, char *surname)
+int search_author(author *author_arr, int array_size, char *surname)//search author using surname
 {
     int bottom = 0;
     int mid;
@@ -310,12 +309,11 @@ int search_author(author *author_arr, int array_size, char *surname)
     return -1;
 }
 
-int search_book(book *book_arr, int array_size, char *title)
+int search_book(book *book_arr, int array_size, char *title)//search book using title
 {
     int bottom = 0;
     int mid;
     int top = array_size - 1;
-    char *buffer;
 
     qsort(book_arr, array_size, sizeof(book), book_title_compare);
 
@@ -338,12 +336,12 @@ int search_book(book *book_arr, int array_size, char *title)
     return -1;
 }
 
-int search_writes_by_title(writes *writes_arr, int array_size, char *title, int index)
+int search_writes_by_title(writes *writes_arr, int array_size, char *title, int index)//search writes using title 
 {
     int bottom = 0;
     int mid;
     int top = array_size - 1;
-    char *buffer;
+   
 
     qsort(writes_arr, array_size, sizeof(writes), writes_title_compare);
 
@@ -373,12 +371,12 @@ int search_writes_by_title(writes *writes_arr, int array_size, char *title, int 
     return -1;
 }
 
-int search_author_id(author *author_arr, int array_size, int id)
+int search_author_id(author *author_arr, int array_size, int id)//search author using id
 {
     int bottom = 0;
     int mid;
     int top = array_size - 1;
-    char *buffer;
+    
 
     qsort(author_arr, array_size, sizeof(author), author_id_compare);
 
@@ -402,7 +400,7 @@ int search_author_id(author *author_arr, int array_size, int id)
     return -1;
 }
 
-void search_writes_by_id(writes *writes_arr, book *book_arr, int writes_array_size, int book_arr_size, int id)
+void search_writes_by_id(writes *writes_arr, book *book_arr, int writes_array_size, int book_arr_size, int id)//search writes using id
 {
     int has_books = 0;
     int i;
@@ -464,7 +462,7 @@ writes *insert_writes(int writes_arr_size, int book_arr_size, int author_arr_siz
     return (writes_arr);
 }
 
-book *delete_book(book *book_arr, int book_arr_size, int book_index)
+book *delete_book(book *book_arr, int book_arr_size, int book_index)//delete a book using its index in the array 
 {
 
     if (book_index != -1)
@@ -490,10 +488,10 @@ book *delete_book(book *book_arr, int book_arr_size, int book_index)
     }
 }
 
-writes *delete_writes_title(int writes_arr_size, writes *writes_arr, char *title)
+writes *delete_writes_title(int writes_arr_size, writes *writes_arr, char *title)//delete writes using the title
 {
 
-    int writes_index = search_writes_by_title(writes_arr, writes_arr_size, title, 1);
+    int writes_index = search_writes_by_title(writes_arr, writes_arr_size, title, 1);//search title return index or -1 if it doesnt exist
 
     if (writes_index != -1)
     {
@@ -518,7 +516,7 @@ writes *delete_writes_title(int writes_arr_size, writes *writes_arr, char *title
     }
 }
 
-author *update_num_of_books(int author_arr_size, int writes_arr_size, author *author_arr, writes *writes_arr)
+author *update_num_of_books(int author_arr_size, int writes_arr_size, author *author_arr, writes *writes_arr)//using writes update num of books in authors
 {
 	int i;
 	int j;
@@ -538,7 +536,7 @@ author *update_num_of_books(int author_arr_size, int writes_arr_size, author *au
     return (author_arr);
 }
 
-author *delete_author(int author_arr_size, author *author_arr, int author_index)
+author *delete_author(int author_arr_size, author *author_arr, int author_index)//delete author by using index in array 
 {
 	int i;
     author *new_author_arr;
@@ -572,10 +570,9 @@ writes *delete_writes_id(int writes_arr_size, writes *writes_arr, int id, int bo
     return (new_writes_arr);
 }
 
-book *mass_book_delete(writes *writes_arr, book *book_arr, int writes_array_size, int book_arr_size, int id)
+book *mass_book_delete(writes *writes_arr, book *book_arr, int writes_array_size, int book_arr_size, int id)//delete multiple books belonging to one id
 {
 	int i;
-    int has_books = 0;
     qsort(writes_arr, writes_array_size, sizeof(writes), writes_id_compare);
     for (i = 0; i < writes_array_size; i++)
     {
@@ -589,7 +586,7 @@ book *mass_book_delete(writes *writes_arr, book *book_arr, int writes_array_size
     return book_arr;
 }
 
-void print_arr(author *author_arr, int author_arr_size)
+void print_arr(author *author_arr, int author_arr_size)//print entire array
 {
 	int i;
     printf("---------------");
