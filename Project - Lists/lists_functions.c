@@ -106,11 +106,12 @@ writes_list *get_writes()
     return (w_list);
 }
 
-void print_a_list(const author_list *list)
+void print_a_list(author_list *list)
 {
+	int i;
     author *cur;
     cur = list->head;
-    while (cur)
+    for(i=0;i<list->entries;i++)
     {
         printf("------------\n");
         printf("%s\n", cur->surname);
@@ -120,6 +121,7 @@ void print_a_list(const author_list *list)
         printf("------------\n");
         cur = cur->next;
     }
+   
 }
 
 void print_a_node(author *a)
@@ -138,9 +140,10 @@ void print_b_node(book *b)
 
 void print_b_list(const book_list *list)
 {
+	int i;
     book *cur;
     cur = list->head;
-    while (cur)
+    for(i=0;i<list->entries;i++)
     {
         printf("------------\n");
         printf("%s\n", cur->title);
@@ -149,13 +152,15 @@ void print_b_list(const book_list *list)
         printf("------------\n");
         cur = cur->next;
     }
+    
 }
 
 void print_w_list(const writes_list *list)
 {
+	int i;
     writes *cur;
     cur = list->head;
-    while (cur)
+   for(i=0;i<list->entries;i++)
     {
         printf("------------\n");
         printf("%s\n", cur->title);

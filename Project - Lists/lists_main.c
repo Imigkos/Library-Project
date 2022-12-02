@@ -17,8 +17,10 @@ void main()
     {
         int menu_choice;
         printf("\n1)Insert new writer record\n2)Insert new book record\n3)Search a writer record\n4)Search a book record\n5)Delete a writer record\n6)Delete a book record\n7)Exit\n");
+        printf("\nEnter your choice: ");
         scanf("%d", &menu_choice);
         getchar();
+        
 
         switch (menu_choice)
         {
@@ -62,7 +64,6 @@ void main()
             break;
         case 4:
             puts("");
-
             char title_target[MAX];
             book *target_book;
             writes *target_writes;
@@ -88,7 +89,6 @@ void main()
             break;
         case 5:
             puts("");
-
             int i;
             int id_delete = -1;
             print_a_list(a_list);
@@ -141,6 +141,7 @@ void main()
             exit_library(a_list,b_list,w_list);
             break;
         default:
+        	printf("\nEnter a valid choice!!");
         }
     }
 }
