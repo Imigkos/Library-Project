@@ -146,9 +146,9 @@ void print_b_list(const book_list *list)
     int i;
     book *cur;
     cur = list->head;
+    printf("---------------\n");
     for (i = 0; i < list->entries; i++)
     {
-        printf("------------\n");
         printf("%s\n", cur->title);
         printf("%.2f\n", cur->price);
         printf("%d\n", cur->release_date);
@@ -266,14 +266,15 @@ author *search_author(author_list *a_list, char *surname)
 book *search_book(book_list *b_list, char *title)
 {
     int i;
-    book *cur = b_list->head;
+    book *b_cur = NULL;
+    b_cur = b_list->head;
     for (i = 0; i < b_list->entries; i++)
     {
-        if (strcasecmp(cur->title, title) == 0)
+        if (strcasecmp(b_cur->title, title) == 0)
         {
-            return cur;
+            return b_cur;
         }
-        cur = cur->next;
+        b_cur =b_cur->next;
     }
     return NULL;
 }
@@ -347,7 +348,6 @@ writes *search_writes_by_title(writes_list *w_list, char *title)
 
 author *search_author_id(author_list *a_list, int id)
 {
-    int i;
     author *cur = a_list->head;
     while (cur != NULL)
     {
@@ -413,7 +413,7 @@ void delete_writes_title(writes_list *w_list, char *title)
     free(cur);
 }
 
-void *mass_book_delete(writes_list *w_list, book_list *b_list, int id)
+void mass_book_delete(writes_list *w_list, book_list *b_list, int id)
 {
 
     writes *cur = w_list->head;

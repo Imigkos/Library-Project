@@ -1,11 +1,55 @@
-3
-12.30
+18
 2023
-Deathseeker
+assseeker
+12.26
+1986
+Tuf Voyaging
+11.99
+1952
+The Voyage of the Dawn Treader
+10.99
+2016
+The Tower of the Swallow
+15.99
+1953
+The Silver Chair
 7.99
-2021
-Lifeseeker
-4.24
+1955
+The Magician's Nephew
+8.65
+1950
+The Lion, the Witch and the Wardrobe
+9.99
+1956
+The Last Battle
+8.99
+1954
+The Horse and His Boy
+6.99
 1983
 The Colour of Magic
 6.65
+1951
+Prince Caspian: The Return to Narnia
+8.99
+2021
+Lifeseeker
+4.24
+2023
+Deathseeker
+7.99
+2000
+A Storm of Swords
+8.99
+1996
+A Game of Thrones
+9.99
+2005
+A Feast for Crows
+8.99
+2011
+A Dance with Dragons
+9.99
+1999
+A Clash of Kings
+9.99

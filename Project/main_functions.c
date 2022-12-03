@@ -148,9 +148,17 @@ author *insert_author(int arr_size, author *author_arr)
     free(buffer);
     buffer = NULL;
 
-    new_writer.writer_id = (arr_size + 1);
+    int check_id;
+    check_id = arr_size + 1;
+    while (search_author_id(author_arr,arr_size,check_id) != -1)
+    {
+        check_id++;
+    }
+    
+
+    new_writer.writer_id = check_id;
     new_writer.num_of_books = 0;
-    author_arr = realloc(author_arr, arr_size*sizeof(author));
+    author_arr = realloc(author_arr, (arr_size+1)*sizeof(author));
     author_arr[arr_size] = new_writer;
     return (author_arr);
 }
@@ -317,7 +325,7 @@ int search_book(book *book_arr, int array_size, char *title)
     int bottom = 0;
     int mid;
     int top = array_size - 1;
-    char *buffer;
+    
 
     qsort(book_arr, array_size, sizeof(book), book_title_compare);
 
@@ -345,7 +353,6 @@ int search_writes_by_title(writes *writes_arr, int array_size, char *title, int 
     int bottom = 0;
     int mid;
     int top = array_size - 1;
-    char *buffer;
 
     qsort(writes_arr, array_size, sizeof(writes), writes_title_compare);
 
@@ -380,7 +387,6 @@ int search_author_id(author *author_arr, int array_size, int id)
     int bottom = 0;
     int mid;
     int top = array_size - 1;
-    char *buffer;
 
     qsort(author_arr, array_size, sizeof(author), author_id_compare);
 
@@ -446,7 +452,7 @@ book *insert_book(int arr_size, book *book_arr)
 
     printf("\nEnter the book's price: ");
     scanf("%f", &new_book.price);
-    book_arr = realloc(book_arr, arr_size*sizeof(book));
+    book_arr = realloc(book_arr, (arr_size+1)*sizeof(book));
     book_arr[arr_size] = new_book;
     return (book_arr);
 }
@@ -461,7 +467,7 @@ writes *insert_writes(int writes_arr_size, int book_arr_size, int author_arr_siz
 
     int index = search_author(author_arr, author_arr_size, surname);
     new_writes.writer_id = author_arr[index].writer_id;
-    writes_arr = realloc(writes_arr, writes_arr_size*sizeof(writes));
+    writes_arr = realloc(writes_arr, (writes_arr_size+1)*sizeof(writes));
     writes_arr[writes_arr_size] = new_writes;
     return (writes_arr);
 }
@@ -577,7 +583,6 @@ writes *delete_writes_id(int writes_arr_size, writes *writes_arr, int id, int bo
 book *mass_book_delete(writes *writes_arr, book *book_arr, int writes_array_size, int book_arr_size, int id)
 {
 	int i;
-    int has_books = 0;
     qsort(writes_arr, writes_array_size, sizeof(writes), writes_id_compare);
     for (i = 0; i < writes_array_size; i++)
     {
@@ -600,5 +605,17 @@ void print_arr(author *author_arr, int author_arr_size)
         printf("\n%s", author_arr[i].name);
         printf(" %s", author_arr[i].surname);
         printf("\nId: %d\n---------------", author_arr[i].writer_id);
+    }
+}
+
+void print_b_arr(book *book_arr,int book_arr_size)
+{
+	int i;
+    printf("---------------");
+    for (i = 0; i < book_arr_size; i++)
+    {
+        printf("\n%s", book_arr[i].title);
+        printf("\n%d", book_arr[i].release_date);
+        printf("\n%.2f\n---------------", book_arr[i].price);
     }
 }

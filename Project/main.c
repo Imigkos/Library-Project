@@ -1,6 +1,6 @@
 
 #include "main_functions.c"
-void main()
+int main()
 {
 	printf("\nIteration using dynamic arrays");
     int author_arr_size = get_arr_size("authors.txt");
@@ -126,6 +126,7 @@ void main()
         case 6:
             puts("");
             char *book_title = malloc(512 * sizeof(char));
+            print_b_arr (book_arr,book_arr_size);
             printf("\nEnter the title of the book you want to delete: ");
             fgets(book_title, MAX, stdin);
             book_title[strcspn(book_title, "\n")] = 0;
@@ -158,4 +159,5 @@ void main()
             printf("\nEnter a valid choice!! ");
         }
     }
+    return 1;
 }

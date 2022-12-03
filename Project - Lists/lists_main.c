@@ -1,6 +1,6 @@
 #include "lists_functions.c"
 
-void main()
+int main()
 {
 	printf("\nIteration using Lists");
     author_list *a_list;
@@ -119,6 +119,7 @@ void main()
         case 6:
             puts("");
             char *book_title = malloc(512 * sizeof(char));
+            print_b_list(b_list);
             printf("\nEnter the title of the book you want to delete: ");
             fgets(book_title, MAX, stdin);
             book_title[strcspn(book_title, "\n")] = 0;
@@ -126,10 +127,8 @@ void main()
 
             if (book_exists == 1)
             {
-                print_b_list(b_list);
                 delete_writes_title(w_list,book_title);
                 update_num_of_books(a_list, w_list);
-                print_w_list(w_list);
             }
             else
             {
@@ -145,4 +144,5 @@ void main()
         	printf("\nEnter a valid choice!!");
         }
     }
+    return 1;
 }
