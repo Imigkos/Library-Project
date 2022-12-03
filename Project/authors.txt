@@ -1,8 +1,8 @@
-4
+5
 1
 Sapkowski
 Andrzej
-6
+7
 2
 Martin
 George
@@ -11,6 +11,10 @@ George
 Rellias
 George
 2
+4
+Lewis
+Clive
+7
 5
 Pratchett
 Terry

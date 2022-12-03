@@ -1,4 +1,4 @@
-4
+5
 5
 Pratchett
 Terry
@@ -10,8 +10,12 @@ Clive
 3
 Rellias
 George
-3
+2
 2
 Martin
 George
 6
+1
+Sapkowski
+Andrzej
+7

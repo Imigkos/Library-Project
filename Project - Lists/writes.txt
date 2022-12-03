@@ -1,6 +1,4 @@
-17
-3
-assseeker
+23
 5
 The Colour of Magic
 4
@@ -33,3 +31,17 @@ A Dance with Dragons
 A Feast for Crows
 2
 A Game of Thrones
+1
+The Tower of the Swallow
+1
+The Last Wish
+1
+Season of Storms
+1
+Blood of Elves
+1
+The Lady of the Lake
+1
+Baptism of Fire
+1
+Time of contempt
