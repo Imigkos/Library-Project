@@ -46,3 +46,4 @@ typedef struct writes_list
 }writes_list;
 
 //author * get_authors();
+author *search_author_id(author_list *a_list,int id);

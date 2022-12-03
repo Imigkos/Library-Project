@@ -1,10 +1,11 @@
 3
-1983
-The Colour of Magic
-6.65
-2021
-Lifeseeker
-4.24
+12.30
 2023
 Deathseeker
 7.99
+2021
+Lifeseeker
+4.24
+1983
+The Colour of Magic
+6.65

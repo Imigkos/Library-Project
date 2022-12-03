@@ -66,7 +66,6 @@ book_list *get_books()
         fgets(new_book->title, MAX, book_file);
         new_book->title[strcspn(new_book->title, "\n")] = 0;
         new_book->title[strcspn(new_book->title, "\r")] = 0;
-        
 
         fgets(buffer, MAX, book_file);
         new_book->price = atof(buffer);
@@ -113,11 +112,11 @@ writes_list *get_writes()
 
 void print_a_list(author_list *list)
 {
-	int i;
+    int i;
     author *cur;
     cur = list->head;
     printf("---------------\n");
-    for(i=0;i<list->entries;i++)
+    for (i = 0; i < list->entries; i++)
     {
         printf("%s", cur->surname);
         printf(" %s", cur->name);
@@ -126,7 +125,6 @@ void print_a_list(author_list *list)
         printf("\n---------------\n");
         cur = cur->next;
     }
-   
 }
 
 void print_a_node(author *a)
@@ -145,10 +143,10 @@ void print_b_node(book *b)
 
 void print_b_list(const book_list *list)
 {
-	int i;
+    int i;
     book *cur;
     cur = list->head;
-    for(i=0;i<list->entries;i++)
+    for (i = 0; i < list->entries; i++)
     {
         printf("------------\n");
         printf("%s\n", cur->title);
@@ -157,15 +155,14 @@ void print_b_list(const book_list *list)
         printf("------------\n");
         cur = cur->next;
     }
-    
 }
 
 void print_w_list(const writes_list *list)
 {
-	int i;
+    int i;
     writes *cur;
     cur = list->head;
-   for(i=0;i<list->entries;i++)
+    for (i = 0; i < list->entries; i++)
     {
         printf("------------\n");
         printf("%s\n", cur->title);
@@ -196,7 +193,15 @@ void insert_author(author_list *a_list)
     free(buffer);
     buffer = NULL;
 
-    new_author->writer_id = (++a_list->entries);
+    int check_id;
+    check_id = ++a_list->entries;
+
+    while (search_author_id(a_list, check_id) != NULL)
+    {
+        check_id++;
+    }
+
+    new_author->writer_id = check_id;
     new_author->num_of_books = 0;
 
     new_author->next = a_list->head;
@@ -247,7 +252,8 @@ author *search_author(author_list *a_list, char *surname)
 {
     int i;
     author *cur = a_list->head;
-    for(i = 0;i<a_list->entries;i++){
+    for (i = 0; i < a_list->entries; i++)
+    {
         if (strcasecmp(cur->surname, surname) == 0)
         {
             return cur;
@@ -261,7 +267,8 @@ book *search_book(book_list *b_list, char *title)
 {
     int i;
     book *cur = b_list->head;
-    for(i = 0;i<b_list->entries;i++){
+    for (i = 0; i < b_list->entries; i++)
+    {
         if (strcasecmp(cur->title, title) == 0)
         {
             return cur;
@@ -273,10 +280,10 @@ book *search_book(book_list *b_list, char *title)
 
 void search_writes_by_id(writes_list *w_list, book_list *b_list, int id)
 {
-	int i;
     int has_books = 0;
     writes *cur = w_list->head;
-    for (i = 0;i<w_list->entries;i++){
+    while (cur != NULL)
+    {
         if (cur->writer_id == id)
         {
             book *found_book = search_book(b_list, cur->title);
@@ -297,15 +304,15 @@ void update_num_of_books(author_list *a_list, writes_list *w_list)
     author *a_cur;
     writes *w_cur;
     int books_written;
-    int i;
-    int j;
 
     a_cur = a_list->head;
 
-    for(i = 0;i<a_list->entries;i++){
+    while (a_cur != NULL)
+    {
         w_cur = w_list->head;
         books_written = 0;
-        for(j = 0;j<w_list->entries;j++){
+        while (w_cur != NULL)
+        {
             if (w_cur->writer_id == a_cur->writer_id)
             {
                 books_written++;
@@ -342,7 +349,8 @@ author *search_author_id(author_list *a_list, int id)
 {
     int i;
     author *cur = a_list->head;
-    for(i = 0;i<a_list->entries;i++){
+    while (cur != NULL)
+    {
         if (cur->writer_id == id)
         {
             return cur;
@@ -487,8 +495,8 @@ void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)
     }
 
     fprintf(author_file, "%d\n", a_list->entries);
-     for(i=0;i<a_list->entries;i++)
-    { 
+    for (i = 0; i < a_list->entries; i++)
+    {
         fprintf(author_file, "%d\n", a_cur->writer_id);
         fprintf(author_file, "%s\n", a_cur->surname);
         fprintf(author_file, "%s\n", a_cur->name);
@@ -503,7 +511,7 @@ void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)
     }
 
     fprintf(book_file, "%d\n", b_list->entries);
-     for(i=0;i<b_list->entries;i++)
+    for (i = 0; i < b_list->entries; i++)
     {
         fprintf(book_file, "%d\n", b_cur->release_date);
         fprintf(book_file, "%s\n", b_cur->title);
@@ -518,11 +526,11 @@ void exit_library(author_list *a_list, book_list *b_list, writes_list *w_list)
     }
     fprintf(writes_file, "%d\n", w_list->entries);
 
-     for(i=0;i<w_list->entries;i++)
+    for (i = 0; i < w_list->entries; i++)
     {
         fprintf(writes_file, "%d\n", w_cur->writer_id);
         fprintf(writes_file, "%s\n", w_cur->title);
-        w_cur =w_cur->next;
+        w_cur = w_cur->next;
     }
 
     fflush(author_file);
