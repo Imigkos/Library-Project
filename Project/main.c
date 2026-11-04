@@ -4,16 +4,13 @@ int main()
 {
 	printf("\nIteration using dynamic arrays");
     int author_arr_size = get_arr_size("authors.txt");
-    author *author_arr = malloc(sizeof(author) * author_arr_size);
-    author_arr = get_authors();
+    author *author_arr = get_authors();
 
     int book_arr_size = get_arr_size("book.txt");
-    book *book_arr = malloc(sizeof(book) * book_arr_size);
-    book_arr = get_books();
+    book *book_arr = get_books();
 
     int writes_arr_size = get_arr_size("writes.txt");
-    writes *writes_arr = malloc(sizeof(writes) * writes_arr_size);
-    writes_arr = get_writes();
+    writes *writes_arr = get_writes();
     author_arr = update_num_of_books(author_arr_size, writes_arr_size, author_arr, writes_arr);
 
     int exit = 0;
@@ -159,5 +156,5 @@ int main()
             printf("\nEnter a valid choice!! ");
         }
     }
-    return 1;
+    return EXIT_SUCCESS;
 }

@@ -144,5 +144,5 @@ int main()
         	printf("\nEnter a valid choice!!");
         }
     }
-    return 1;
+    return EXIT_SUCCESS;
 }
